@@ -1,4 +1,4 @@
-package com.example.se1753net_gr2_onlineshoes.data;
+package com.example.se1753net_gr2_onlineshoes.data.local.database;
 
 import androidx.room.Database;
 import androidx.room.Room;
@@ -76,10 +76,9 @@ public abstract class ShoeShopDatabase extends RoomDatabase {
         if (INSTANCE == null) {
             synchronized (ShoeShopDatabase.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(
-                            context.getApplicationContext(),
-                            ShoeShopDatabase.class, "shoes_db"
-                    ).fallbackToDestructiveMigration().build();
+                            INSTANCE = Room.databaseBuilder(context.getApplicationContext(), ShoeShopDatabase.class, "shoenme.db")
+                                    .createFromAsset("databases/shoenme.db") // Load from assets
+                                    .fallbackToDestructiveMigration().build();
                 }
             }
         }
