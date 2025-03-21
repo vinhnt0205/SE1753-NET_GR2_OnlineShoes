@@ -77,7 +77,7 @@ public abstract class ShoeShopDatabase extends RoomDatabase {
             synchronized (ShoeShopDatabase.class) {
                 if (INSTANCE == null) {
                             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), ShoeShopDatabase.class, "shoenme.db")
-                                    .createFromAsset("databases/shoenme.db") // Load from assets
+                                    //.createFromAsset("databases/shoenme.db") // Load from assets
                                     .fallbackToDestructiveMigration().build();
                 }
             }
