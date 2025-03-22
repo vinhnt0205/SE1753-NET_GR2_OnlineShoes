@@ -14,6 +14,7 @@ import com.example.se1753net_gr2_onlineshoes.R;
 import com.example.se1753net_gr2_onlineshoes.data.local.database.ShoeShopDatabase;
 import com.example.se1753net_gr2_onlineshoes.data.local.dao.UserDao;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.User;
+import com.example.se1753net_gr2_onlineshoes.ui.MainActivity;
 
 public class activity_login extends AppCompatActivity {
 
