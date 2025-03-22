@@ -12,6 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Se1753net_gr2_onlineshoes"
         tools:targetApi="31">
+         <!-- Marketing Activities -->
+        <activity
+            android:name=".ui.activities.marketing_activities.MarketingDashboardActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Se1753net_gr2_onlineshoes" />
+        <activity
+            android:name=".ui.activities.marketing_activities.MarketingProductListActivity"
+            android:exported="false" />
+
+        <!-- User Authentication and Profile Activities -->
         <activity
             android:name=".activity.activity_edit_profile"
             android:exported="false" />
@@ -39,12 +49,13 @@
         <activity
             android:name=".activity.activity_login"
             android:exported="false" />
+
+        <!-- Main Activity -->
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

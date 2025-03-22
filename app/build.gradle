@@ -26,10 +26,15 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
 
+    implementation libs.navigation.fragment
+    implementation libs.navigation.ui
     String room_version = "2.6.1"
 
     implementation libs.appcompat
