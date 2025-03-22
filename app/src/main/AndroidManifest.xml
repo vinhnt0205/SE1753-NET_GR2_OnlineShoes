@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Se1753net_gr2_onlineshoes"
         tools:targetApi="31">
+         <!-- Marketing Activities -->
         <activity
             android:name=".ui.activities.marketing_activities.MarketingDashboardActivity"
             android:exported="false"
@@ -19,12 +20,33 @@
         <activity
             android:name=".ui.activities.marketing_activities.MarketingProductListActivity"
             android:exported="false" />
+
+        <!-- User Authentication and Profile Activities -->
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".activity_edit_profile"
+            android:exported="false" />
+        <activity
+            android:name=".activity_change_password"
+            android:exported="false" />
+        <activity
+            android:name=".activity_reset_password"
+            android:exported="false" />
+        <activity
+            android:name=".activity_forgot_password"
+            android:exported="false" />
+        <activity
+            android:name=".activity_register"
+            android:exported="false" />
+        <activity
+            android:name=".activity_login"
+            android:exported="false" />
+
+        <!-- Main Activity -->
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
