@@ -16,6 +16,6 @@ public class ShoppingCart {
     @ColumnInfo(name = "user_id")
     public String userId;
 
-    @ColumnInfo(name = "created_at")
-    public String createdAt;
+    @ColumnInfo(name = "updated_at")
+    public String updatedAt;
 }
