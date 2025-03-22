@@ -14,4 +14,3 @@ public class ProductCategory {
     @ColumnInfo(name = "category_id")
     public String categoryId;
 }
-

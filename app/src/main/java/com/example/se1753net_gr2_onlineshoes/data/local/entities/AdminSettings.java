@@ -12,9 +12,12 @@ public class AdminSettings {
     @ColumnInfo(name = "setting_id")
     public String settingId;
 
+    @NonNull
     @ColumnInfo(name = "setting_key")
     public String settingKey;
 
+    @NonNull
     @ColumnInfo(name = "setting_value")
     public String settingValue;
 }
+

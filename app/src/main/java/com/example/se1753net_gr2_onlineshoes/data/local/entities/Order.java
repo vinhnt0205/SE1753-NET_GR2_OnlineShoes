@@ -12,27 +12,31 @@ public class Order {
     @ColumnInfo(name = "order_id")
     public String orderId;
 
+    @NonNull
     @ColumnInfo(name = "user_id")
     public String userId;
 
+    @NonNull
     @ColumnInfo(name = "order_date")
     public String orderDate;
 
+    @NonNull
     @ColumnInfo(name = "status")
-    public String status; // ENUM('Pending', 'Shipped', 'Delivered', 'Cancelled')
+    public String status;
 
-    @ColumnInfo(name = "total_amount")
-    public double totalAmount;
-
+    @NonNull
     @ColumnInfo(name = "shipping_address")
     public String shippingAddress;
 
+    @NonNull
     @ColumnInfo(name = "recipient_name")
     public String recipientName;
 
+    @NonNull
     @ColumnInfo(name = "recipient_phone")
     public String recipientPhone;
 
     @ColumnInfo(name = "tracking_number")
     public String trackingNumber;
 }
+
