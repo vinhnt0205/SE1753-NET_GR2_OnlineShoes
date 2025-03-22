@@ -1,7 +1,6 @@
-package com.example.se1753net_gr2_onlineshoes;
+package com.example.se1753net_gr2_onlineshoes.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,14 +11,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.se1753net_gr2_onlineshoes.R;
 import com.example.se1753net_gr2_onlineshoes.adapter.MarketingProductListAdapter;
 import com.example.se1753net_gr2_onlineshoes.data.local.dao.ProductDao;
 import com.example.se1753net_gr2_onlineshoes.data.local.database.ShoeShopDatabase;
 import com.example.se1753net_gr2_onlineshoes.data.repository.ProductRepository;
 import com.example.se1753net_gr2_onlineshoes.viewmodel.ProductViewModel;
 import com.example.se1753net_gr2_onlineshoes.viewmodel.factory.ProductViewModelFactory;
-
-import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 

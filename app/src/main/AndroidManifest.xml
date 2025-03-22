@@ -13,25 +13,34 @@
         android:theme="@style/Theme.Se1753net_gr2_onlineshoes"
         tools:targetApi="31">
         <activity
-            android:name=".activity_edit_profile"
+            android:name=".activity.activity_edit_profile"
             android:exported="false" />
         <activity
-            android:name=".activity_change_password"
+            android:name=".activity.activity_change_password"
+            android:exported="false" />
+        <activity android:name=".activity.activity_reset_password"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="se1753net_gr2_onlineshoes" android:host="reset-password" />
+            </intent-filter>
+        </activity>
+
+
+        <activity
+            android:name=".activity.activity_forgot_password"
             android:exported="false" />
         <activity
-            android:name=".activity_reset_password"
+            android:name=".activity.activity_register"
             android:exported="false" />
         <activity
-            android:name=".activity_forgot_password"
+            android:name=".activity.activity_login"
             android:exported="false" />
         <activity
-            android:name=".activity_register"
-            android:exported="false" />
-        <activity
-            android:name=".activity_login"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -3,6 +3,8 @@ package com.example.se1753net_gr2_onlineshoes.data.local.database;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
+
 import android.content.Context;
 
 import com.example.se1753net_gr2_onlineshoes.data.local.dao.AdminSettingsDao;
@@ -49,6 +51,7 @@ import com.example.se1753net_gr2_onlineshoes.data.local.entities.UserRole;
         version = 1, // Increment when making schema changes
         exportSchema = false
 )
+@TypeConverters(Converters.class)
 public abstract class ShoeShopDatabase extends RoomDatabase {
 
     // Define abstract methods for each DAO
