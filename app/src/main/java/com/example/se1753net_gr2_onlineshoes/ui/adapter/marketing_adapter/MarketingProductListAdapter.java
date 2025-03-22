@@ -1,9 +1,10 @@
-package com.example.se1753net_gr2_onlineshoes.adapter;
+package com.example.se1753net_gr2_onlineshoes.ui.adapter.marketing_adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,7 +36,7 @@ public class MarketingProductListAdapter extends RecyclerView.Adapter<MarketingP
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_product, parent, false);
+                .inflate(R.layout.recyclerview_marketing_item_product, parent, false);
         return new ProductViewHolder(view);
     }
 
@@ -43,11 +44,10 @@ public class MarketingProductListAdapter extends RecyclerView.Adapter<MarketingP
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
 
-        holder.textViewIndex.setText(String.valueOf(position + 1));
-        holder.textViewCode.setText(product.productId);
-        holder.textViewName.setText(product.name);
-        holder.textViewQuantity.setText(String.valueOf(product.price));
-        holder.textViewPrice.setText(String.valueOf(product.price));
+        holder.nameTextView.setText(product.name);
+        holder.descTextView.setText(product.description);
+        holder.dateTextView.setText(product.createdAt);
+        //holder.imageView.setImageResource(product);
     }
 
     @Override
@@ -56,17 +56,16 @@ public class MarketingProductListAdapter extends RecyclerView.Adapter<MarketingP
     }
 
     static class ProductViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewIndex, textViewCode, textViewName, textViewQuantity, textViewPrice;
+        TextView nameTextView, descTextView, dateTextView;
+        ImageView imageView;
         Button buttonDelete;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewIndex = itemView.findViewById(R.id.textViewIndex);
-            textViewCode = itemView.findViewById(R.id.textViewCode);
-            textViewName = itemView.findViewById(R.id.textViewName);
-            textViewQuantity = itemView.findViewById(R.id.textViewQuantity);
-            textViewPrice = itemView.findViewById(R.id.textViewPrice);
-            buttonDelete = itemView.findViewById(R.id.buttonDelete);
+            nameTextView = itemView.findViewById(R.id.productName);
+            descTextView = itemView.findViewById(R.id.productDesc);
+            dateTextView = itemView.findViewById(R.id.productDate);
+            imageView = itemView.findViewById(R.id.productImage);
         }
     }
 }
