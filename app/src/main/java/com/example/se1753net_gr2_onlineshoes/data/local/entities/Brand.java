@@ -12,6 +12,7 @@ public class Brand {
     @ColumnInfo(name = "brand_id")
     public String brandId;
 
+    @NonNull
     @ColumnInfo(name = "brand_name")
     public String brandName;
 }

@@ -12,6 +12,7 @@ public class ProductStatistics {
     @ColumnInfo(name = "stat_id")
     public String statId;
 
+    @NonNull
     @ColumnInfo(name = "product_id")
     public String productId;
 

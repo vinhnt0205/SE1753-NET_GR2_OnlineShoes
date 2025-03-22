@@ -5,6 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.ColumnInfo;
 
+
 @Entity(tableName = "Cart_Items")
 public class CartItem {
     @PrimaryKey
@@ -12,12 +13,16 @@ public class CartItem {
     @ColumnInfo(name = "cart_item_id")
     public String cartItemId;
 
+    @NonNull
     @ColumnInfo(name = "cart_id")
     public String cartId;
 
+    @NonNull
     @ColumnInfo(name = "product_id")
     public String productId;
 
+    @NonNull
     @ColumnInfo(name = "quantity")
     public int quantity;
 }
+

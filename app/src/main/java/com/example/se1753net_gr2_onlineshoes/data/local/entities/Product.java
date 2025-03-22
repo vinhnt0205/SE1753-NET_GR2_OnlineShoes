@@ -12,33 +12,40 @@ public class Product {
     @ColumnInfo(name = "product_id")
     public String productId;
 
+    @NonNull
     @ColumnInfo(name = "name")
     public String name;
 
     @ColumnInfo(name = "description")
     public String description;
 
+    @NonNull
     @ColumnInfo(name = "price")
-    public double price;
+    public Double price;
 
     @ColumnInfo(name = "sale_price")
-    public Double salePrice; // Nullable
+    public Double salePrice;
 
+    @NonNull
     @ColumnInfo(name = "stock")
     public int stock;
 
+    @NonNull
     @ColumnInfo(name = "brand_id")
     public String brandId;
 
     @ColumnInfo(name = "is_featured")
-    public boolean isFeatured;
+    public Boolean isFeatured;
 
+    @NonNull
     @ColumnInfo(name = "status")
-    public String status; // ENUM('Active', 'Inactive')
+    public String status;
 
+    @NonNull
     @ColumnInfo(name = "created_at")
     public String createdAt;
 
+    @NonNull
     @ColumnInfo(name = "updated_at")
     public String updatedAt;
 }

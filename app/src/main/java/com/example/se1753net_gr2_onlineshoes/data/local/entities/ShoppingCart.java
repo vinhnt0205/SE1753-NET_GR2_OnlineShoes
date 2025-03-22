@@ -12,6 +12,7 @@ public class ShoppingCart {
     @ColumnInfo(name = "cart_id")
     public String cartId;
 
+    @NonNull
     @ColumnInfo(name = "user_id")
     public String userId;
 

@@ -9,7 +9,7 @@ import com.example.se1753net_gr2_onlineshoes.data.local.dao.AdminSettingsDao;
 import com.example.se1753net_gr2_onlineshoes.data.local.dao.BrandDao;
 import com.example.se1753net_gr2_onlineshoes.data.local.dao.CartItemDao;
 import com.example.se1753net_gr2_onlineshoes.data.local.dao.CategoryDao;
-import com.example.se1753net_gr2_onlineshoes.data.local.dao.CustomerActivityDao;
+import com.example.se1753net_gr2_onlineshoes.data.local.dao.CustomerActivitySummaryDao;
 import com.example.se1753net_gr2_onlineshoes.data.local.dao.FeedbackDao;
 import com.example.se1753net_gr2_onlineshoes.data.local.dao.OrderDao;
 import com.example.se1753net_gr2_onlineshoes.data.local.dao.OrderDetailDao;
@@ -25,7 +25,7 @@ import com.example.se1753net_gr2_onlineshoes.data.local.entities.AdminSettings;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.Brand;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.CartItem;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.Category;
-import com.example.se1753net_gr2_onlineshoes.data.local.entities.CustomerActivity;
+import com.example.se1753net_gr2_onlineshoes.data.local.entities.CustomerActivitySummary;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.Feedback;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.Order;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.OrderDetail;
@@ -44,7 +44,7 @@ import com.example.se1753net_gr2_onlineshoes.data.local.entities.UserRole;
                 User.class, UserRole.class, Brand.class, Product.class, ProductImage.class,
                 Order.class, OrderDetail.class, ShoppingCart.class, CartItem.class,
                 Category.class, ProductCategory.class, Feedback.class, Slider.class,
-                ProductStatistics.class, AdminSettings.class, CustomerActivity.class
+                ProductStatistics.class, AdminSettings.class, CustomerActivitySummary.class
         },
         version = 1, // Increment when making schema changes
         exportSchema = false
@@ -67,7 +67,7 @@ public abstract class ShoeShopDatabase extends RoomDatabase {
     public abstract SliderDao sliderDao();
     public abstract ProductStatisticsDao productStatisticsDao();
     public abstract AdminSettingsDao adminSettingsDao();
-    public abstract CustomerActivityDao customerActivityDao();
+    public abstract CustomerActivitySummaryDao customerActivitySummaryDao();
 
     // Singleton instance
     private static volatile ShoeShopDatabase INSTANCE;
@@ -76,8 +76,8 @@ public abstract class ShoeShopDatabase extends RoomDatabase {
         if (INSTANCE == null) {
             synchronized (ShoeShopDatabase.class) {
                 if (INSTANCE == null) {
-                            INSTANCE = Room.databaseBuilder(context.getApplicationContext(), ShoeShopDatabase.class, "shoenme.db")
-                                    //.createFromAsset("databases/shoenme.db") // Load from assets
+                            INSTANCE = Room.databaseBuilder(context.getApplicationContext(), ShoeShopDatabase.class, "shoeShopDB")
+                                    .createFromAsset("databases/shoeShop.db") // Load from assets
                                     .fallbackToDestructiveMigration().build();
                 }
             }

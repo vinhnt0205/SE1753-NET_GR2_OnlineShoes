@@ -12,6 +12,7 @@ public class ProductImage {
     @ColumnInfo(name = "image_id")
     public String imageId;
 
+    @NonNull
     @ColumnInfo(name = "product_id")
     public String productId;
 
