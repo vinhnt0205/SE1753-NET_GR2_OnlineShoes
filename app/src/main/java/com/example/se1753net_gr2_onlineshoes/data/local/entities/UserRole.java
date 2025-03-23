@@ -1,17 +1,22 @@
-    package com.example.se1753net_gr2_onlineshoes.data.local.entities;
+package com.example.se1753net_gr2_onlineshoes.data.local.entities;
 
-    import androidx.annotation.NonNull;
-    import androidx.room.ColumnInfo;
-    import androidx.room.Entity;
-    import androidx.room.PrimaryKey;
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-    @Entity(tableName = "User_Roles")
-    public class UserRole {
-        @PrimaryKey
-        @NonNull
-        @ColumnInfo(name = "role_id")
-        public String roleId;
+@Entity(tableName = "User_Roles")
+public class UserRole {
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "role_id")
+    public String roleId;
 
-        @ColumnInfo(name = "role_name")
-        public String roleName;
+    @ColumnInfo(name = "role_name")
+    public String roleName;
+
+    public UserRole(@NonNull String roleId, @NonNull String roleName) {
+        this.roleId = roleId;
+        this.roleName = roleName;
     }
+}

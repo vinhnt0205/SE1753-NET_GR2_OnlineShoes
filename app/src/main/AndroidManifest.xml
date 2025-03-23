@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
+    <!-- Cấp quyền Internet -->
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,7 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Se1753net_gr2_onlineshoes"
         tools:targetApi="31">
-         <!-- Marketing Activities -->
+        
+        <!-- Marketing Activities -->
+        <activity
+            android:name=".ui.activities.marketing_activities.MarketingAnalyticActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.activities.marketing_activities.MarketingDashboardActivity"
             android:exported="false"
@@ -20,7 +25,7 @@
         <activity
             android:name=".ui.activities.marketing_activities.MarketingProductListActivity"
             android:exported="false" />
-
+        
         <!-- User Authentication and Profile Activities -->
         <activity
             android:name=".activity.activity_edit_profile"
@@ -28,18 +33,16 @@
         <activity
             android:name=".activity.activity_change_password"
             android:exported="false" />
-        <activity android:name=".activity.activity_reset_password"
+        <activity
+            android:name=".activity.activity_reset_password"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="se1753net_gr2_onlineshoes" android:host="reset-password" />
+                <data android:host="reset-password" android:scheme="se1753net_gr2_onlineshoes" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".activity.activity_forgot_password"
             android:exported="false" />
@@ -48,11 +51,14 @@
             android:exported="false" />
         <activity
             android:name=".activity.activity_login"
-            android:exported="false" />
-
-
-<!--         Main Activity -->
-
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <!-- Main Activity -->
         <activity
             android:name=".ui.activities.sale_activities.SaleDashboardActivity"
             android:exported="true">
@@ -61,15 +67,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<!--        <activity-->
-<!--            android:name=".activity.activity_login"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
     </application>
-
-
 </manifest>

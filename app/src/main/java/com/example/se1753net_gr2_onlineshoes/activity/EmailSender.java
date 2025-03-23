@@ -1,4 +1,4 @@
-package com.example.se1753net_gr2_onlineshoes.utils;
+package com.example.se1753net_gr2_onlineshoes.activity;
 
 import java.util.Properties;
 import javax.mail.*;
@@ -6,8 +6,8 @@ import javax.mail.internet.*;
 
 public class EmailSender {
     public static boolean sendEmail(String recipient, String resetCode) {
-        final String senderEmail = "your-email@gmail.com";
-        final String senderPassword = "your-email-password";
+        final String senderEmail = "quaithugaoru@gmail.com";
+        final String senderPassword = "oqtt qcwz fqsx lnug";
 
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -28,12 +28,11 @@ public class EmailSender {
             message.setSubject("Đặt lại mật khẩu");
 
             // Tạo URL dẫn đến trang đặt lại mật khẩu
-            String resetLink = "https://yourwebsite.com/reset-password?code=" + resetCode;
+            String resetLink = "se1753net_gr2_onlineshoes://reset-password?code=" + resetCode;
 
-            // Nội dung email với link HTML
             String emailContent = "<h2>Đặt lại mật khẩu</h2>"
                     + "<p>Nhấp vào liên kết bên dưới để đặt lại mật khẩu của bạn:</p>"
-                    + "<a href='" + resetLink + "'>Đặt lại mật khẩu</a>"
+                    + "<a href='" + resetLink + "' style='color: blue; text-decoration: underline;'>Đặt lại mật khẩu</a>"
                     + "<p>Nếu bạn không yêu cầu đặt lại mật khẩu, vui lòng bỏ qua email này.</p>";
 
             message.setContent(emailContent, "text/html; charset=UTF-8");
