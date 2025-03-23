@@ -3,7 +3,6 @@ package com.example.se1753net_gr2_onlineshoes.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,24 +25,45 @@ public class activity_edit_profile extends AppCompatActivity {
     private Button btnSave, btnCancel;
     private UserDao userDao;
     private User currentUser;
-    private String userId = "current_user_id"; // Thay bằng ID thực tế của người dùng
+    private String userId; // Sử dụng String thay vì int
+    private Button btnChangePassword; // Thêm biến này
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        userDao = ShoeShopDatabase.getInstance(this).userDao();
-        currentUser = userDao.getUserById(userId);
-
         initViews();
-        loadUserData();
+        userDao = ShoeShopDatabase.getInstance(this).userDao();
 
+        // Nhận USER_ID từ Intent (dưới dạng String)
+        userId = getIntent().getStringExtra("USER_ID");
+
+        if (userId == null || userId.isEmpty()) {
+            Toast.makeText(this, "Lỗi: Không tìm thấy người dùng!", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        // Lấy dữ liệu người dùng từ database trên Background Thread
+        new Thread(() -> {
+            currentUser = userDao.getUserById(userId);
+            if (currentUser != null) {
+                runOnUiThread(this::loadUserData);
+            } else {
+                runOnUiThread(() -> {
+                    Toast.makeText(this, "Lỗi: Không thể tải dữ liệu người dùng!", Toast.LENGTH_SHORT).show();
+                    finish();
+                });
+            }
+        }).start();
+
+        // Xử lý sự kiện nút bấm
         btnSave.setOnClickListener(v -> saveUserData());
         btnCancel.setOnClickListener(v -> finish());
-        Button btnGoToChangePassword = findViewById(R.id.btnGoToChangePassword);
-        btnGoToChangePassword.setOnClickListener(v -> {
+        btnChangePassword.setOnClickListener(v -> {
             Intent intent = new Intent(activity_edit_profile.this, activity_change_password.class);
+            intent.putExtra("USER_ID", userId); // Truyền ID người dùng sang trang đổi mật khẩu
             startActivity(intent);
         });
 
@@ -60,42 +80,51 @@ public class activity_edit_profile extends AppCompatActivity {
         ivAvatar = findViewById(R.id.ivAvatar);
         btnSave = findViewById(R.id.btnSave);
         btnCancel = findViewById(R.id.btnCancel);
+        btnChangePassword = findViewById(R.id.btnChangePassword); // Ánh xạ nút
+
     }
 
     private void loadUserData() {
-        if (currentUser != null) {
-            etFullName.setText(currentUser.username);
-            etEmail.setText(currentUser.email);
-            etMobile.setText(currentUser.roleId); // Giả sử mobile được lưu ở roleId, cần điều chỉnh
-            etAddress.setText(currentUser.avatarUrl); // Giả sử address lưu ở avatarUrl, cần điều chỉnh
+        etFullName.setText(currentUser.username);
+        etEmail.setText(currentUser.email);
+        etMobile.setText(currentUser.phoneNumber);
+        etAddress.setText(currentUser.address);
 
-            if (currentUser.roleId.equals("male")) {
-                rbMale.setChecked(true);
-            } else {
-                rbFemale.setChecked(true);
-            }
+        if ("male".equalsIgnoreCase(currentUser.roleId)) {
+            rbMale.setChecked(true);
+        } else {
+            rbFemale.setChecked(true);
         }
     }
 
     private void saveUserData() {
-        if (currentUser != null) {
-            currentUser.username = etFullName.getText().toString();
-            currentUser.email = etEmail.getText().toString();
-            currentUser.roleId = etMobile.getText().toString();
-            currentUser.avatarUrl = etAddress.getText().toString();
-            currentUser.updatedAt = new java.util.Date();
+        String newEmail = etEmail.getText().toString().trim();
 
-            int selectedGenderId = rgGender.getCheckedRadioButtonId();
-            if (selectedGenderId == R.id.rbMale) {
-                currentUser.roleId = "male";
-            } else {
-                currentUser.roleId = "female";
-            }
-
-            userDao.updateUser(currentUser);
-            Toast.makeText(this, "Cập nhật thông tin thành công!", Toast.LENGTH_SHORT).show();
-            setResult(Activity.RESULT_OK, new Intent());
-            finish();
+        if (!currentUser.email.equals(newEmail) && userDao.checkEmailExists(newEmail) > 0) {
+            showToast("Email này đã tồn tại!");
+            return;
         }
+
+        currentUser.username = etFullName.getText().toString();
+        currentUser.email = newEmail;
+        currentUser.phoneNumber = etMobile.getText().toString();
+        currentUser.address = etAddress.getText().toString();
+        currentUser.updatedAt = System.currentTimeMillis();
+
+        int selectedGenderId = rgGender.getCheckedRadioButtonId();
+        currentUser.roleId = (selectedGenderId == R.id.rbMale) ? "male" : "female";
+
+        new Thread(() -> {
+            userDao.updateUser(currentUser);
+            runOnUiThread(() -> {
+                showToast("Cập nhật thông tin thành công!");
+                setResult(Activity.RESULT_OK, new Intent());
+                finish();
+            });
+        }).start();
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

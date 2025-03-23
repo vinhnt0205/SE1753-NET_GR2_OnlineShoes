@@ -178,7 +178,7 @@
 
         </LinearLayout>
         <Button
-            android:id="@+id/btnGoToChangePassword"
+            android:id="@+id/btnChangePassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Đổi mật khẩu"

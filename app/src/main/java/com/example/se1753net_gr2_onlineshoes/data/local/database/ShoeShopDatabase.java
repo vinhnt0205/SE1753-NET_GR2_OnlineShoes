@@ -4,44 +4,14 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import android.content.Context;
 
-import com.example.se1753net_gr2_onlineshoes.data.local.dao.AdminSettingsDao;
-import com.example.se1753net_gr2_onlineshoes.data.local.dao.BrandDao;
-import com.example.se1753net_gr2_onlineshoes.data.local.dao.CartItemDao;
-import com.example.se1753net_gr2_onlineshoes.data.local.dao.CategoryDao;
-import com.example.se1753net_gr2_onlineshoes.data.local.dao.CustomerActivitySummaryDao;
-import com.example.se1753net_gr2_onlineshoes.data.local.dao.FeedbackDao;
-import com.example.se1753net_gr2_onlineshoes.data.local.dao.OrderDao;
-import com.example.se1753net_gr2_onlineshoes.data.local.dao.OrderDetailDao;
-import com.example.se1753net_gr2_onlineshoes.data.local.dao.ProductCategoryDao;
-import com.example.se1753net_gr2_onlineshoes.data.local.dao.ProductDao;
-import com.example.se1753net_gr2_onlineshoes.data.local.dao.ProductImageDao;
-import com.example.se1753net_gr2_onlineshoes.data.local.dao.ProductStatisticsDao;
-import com.example.se1753net_gr2_onlineshoes.data.local.dao.ShoppingCartDao;
-import com.example.se1753net_gr2_onlineshoes.data.local.dao.SliderDao;
-import com.example.se1753net_gr2_onlineshoes.data.local.dao.UserDao;
-import com.example.se1753net_gr2_onlineshoes.data.local.dao.UserRoleDao;
-import com.example.se1753net_gr2_onlineshoes.data.local.entities.AdminSettings;
-import com.example.se1753net_gr2_onlineshoes.data.local.entities.Brand;
-import com.example.se1753net_gr2_onlineshoes.data.local.entities.CartItem;
-import com.example.se1753net_gr2_onlineshoes.data.local.entities.Category;
-import com.example.se1753net_gr2_onlineshoes.data.local.entities.CustomerActivitySummary;
-import com.example.se1753net_gr2_onlineshoes.data.local.entities.Feedback;
-import com.example.se1753net_gr2_onlineshoes.data.local.entities.Order;
-import com.example.se1753net_gr2_onlineshoes.data.local.entities.OrderDetail;
-import com.example.se1753net_gr2_onlineshoes.data.local.entities.Product;
-import com.example.se1753net_gr2_onlineshoes.data.local.entities.ProductCategory;
-import com.example.se1753net_gr2_onlineshoes.data.local.entities.ProductImage;
-import com.example.se1753net_gr2_onlineshoes.data.local.entities.ProductStatistics;
-import com.example.se1753net_gr2_onlineshoes.data.local.entities.ShoppingCart;
-import com.example.se1753net_gr2_onlineshoes.data.local.entities.Slider;
-import com.example.se1753net_gr2_onlineshoes.data.local.entities.User;
-import com.example.se1753net_gr2_onlineshoes.data.local.entities.UserRole;
-import com.example.se1753net_gr2_onlineshoes.data.local.utils.DateConverter;
+import com.example.se1753net_gr2_onlineshoes.data.local.dao.*;
+import com.example.se1753net_gr2_onlineshoes.data.local.entities.*;
 
-// Import all entity classes
 @Database(
         entities = {
                 User.class, UserRole.class, Brand.class, Product.class, ProductImage.class,
@@ -49,10 +19,10 @@ import com.example.se1753net_gr2_onlineshoes.data.local.utils.DateConverter;
                 Category.class, ProductCategory.class, Feedback.class, Slider.class,
                 ProductStatistics.class, AdminSettings.class, CustomerActivitySummary.class
         },
-        version = 1, // Increment when making schema changes
+        version = 3, // ⚠️ Tăng version lên 3
         exportSchema = false
 )
-@TypeConverters(DateConverter.class) // Apply TypeConverter
+@TypeConverters(Converters.class)
 public abstract class ShoeShopDatabase extends RoomDatabase {
 
     // Define abstract methods for each DAO
@@ -80,13 +50,52 @@ public abstract class ShoeShopDatabase extends RoomDatabase {
         if (INSTANCE == null) {
             synchronized (ShoeShopDatabase.class) {
                 if (INSTANCE == null) {
-                            INSTANCE = Room.databaseBuilder(context.getApplicationContext(), ShoeShopDatabase.class, "shoeShopDB")
-                                    .createFromAsset("databases/shoeShop.db") // Load from assets
-                                    .fallbackToDestructiveMigration().build();
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                                    ShoeShopDatabase.class, "shoeShopDB")
+                            //.createFromAsset("databases/shoeShop.db") // ⚠️ Chỉ bật nếu dùng pre-packaged DB
+                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3) // ⚠️ Thêm migration mới
+                            .fallbackToDestructiveMigration() // ⚠️ Xóa nếu lỗi schema
+                            .build();
                 }
             }
         }
         return INSTANCE;
     }
-}
 
+    // ⚠️ Migration từ version 1 -> 2 (Sửa lại schema)
+    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE Users ADD COLUMN phoneNumber TEXT DEFAULT NULL");
+            database.execSQL("ALTER TABLE Users ADD COLUMN address TEXT DEFAULT NULL");
+        }
+    };
+
+    // ⚠️ Migration từ version 2 -> 3 (Sửa kiểu dữ liệu created_at và updated_at)
+    static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            // Tạo bảng Users mới với đúng schema
+            database.execSQL("CREATE TABLE IF NOT EXISTS Users_new (" +
+                    "user_id TEXT NOT NULL PRIMARY KEY, " +
+                    "username TEXT, " +
+                    "email TEXT, " +
+                    "phoneNumber TEXT, " +
+                    "address TEXT, " +
+                    "avatar_url TEXT, " +
+                    "role_id TEXT, " +
+                    "password_hash TEXT, " +
+                    "created_at INTEGER DEFAULT 0, " + // ⚠️ Đổi thành INTEGER
+                    "updated_at INTEGER DEFAULT 0" +   // ⚠️ Đổi thành INTEGER
+                    ")");
+
+            // Copy dữ liệu từ bảng cũ sang bảng mới
+            database.execSQL("INSERT INTO Users_new (user_id, username, email, phoneNumber, address, avatar_url, role_id, password_hash, created_at, updated_at) " +
+                    "SELECT user_id, username, email, phoneNumber, address, avatar_url, role_id, password_hash, created_at, updated_at FROM Users");
+
+            // Xóa bảng cũ và đổi tên bảng mới thành `Users`
+            database.execSQL("DROP TABLE Users");
+            database.execSQL("ALTER TABLE Users_new RENAME TO Users");
+        }
+    };
+}
