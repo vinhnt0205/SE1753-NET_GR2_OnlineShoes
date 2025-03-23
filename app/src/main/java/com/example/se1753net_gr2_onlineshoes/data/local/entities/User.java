@@ -27,12 +27,26 @@ public class User {
     public String avatarUrl;
 
     @ColumnInfo(name = "created_at")
-    public String createdAt;
+    public Date createdAt;
 
     @ColumnInfo(name = "updated_at")
-    public String updatedAt;
+    public Date updatedAt;
 
     @ColumnInfo(name = "role_id")
     public String roleId;
+
+    public User(@NonNull String userId, String username, String passwordHash, String email, String avatarUrl, String roleId) {
+        this.userId = userId;
+        this.username = username;
+        this.passwordHash = passwordHash;
+        this.email = email;
+        this.avatarUrl = avatarUrl;
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+        this.roleId = roleId;
+    }
 }
+
+
+
 
