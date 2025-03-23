@@ -4,8 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.ColumnInfo;
+import androidx.room.TypeConverters;
+
+import com.example.se1753net_gr2_onlineshoes.data.local.utils.DateConverter;
+
+import java.util.Date;
 
 @Entity(tableName = "Orders")
+@TypeConverters(DateConverter.class) // Apply TypeConverter
 public class Order {
     @PrimaryKey
     @NonNull
@@ -18,7 +24,7 @@ public class Order {
 
     @NonNull
     @ColumnInfo(name = "order_date")
-    public String orderDate;
+    public Date orderDate;
 
     @NonNull
     @ColumnInfo(name = "status")
