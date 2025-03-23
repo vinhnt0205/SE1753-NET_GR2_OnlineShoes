@@ -39,6 +39,7 @@ import com.example.se1753net_gr2_onlineshoes.data.local.entities.ShoppingCart;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.Slider;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.User;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.UserRole;
+import com.example.se1753net_gr2_onlineshoes.data.local.utils.DateConverter;
 
 // Import all entity classes
 @Database(
@@ -51,7 +52,7 @@ import com.example.se1753net_gr2_onlineshoes.data.local.entities.UserRole;
         version = 1, // Increment when making schema changes
         exportSchema = false
 )
-@TypeConverters(Converters.class)
+@TypeConverters(DateConverter.class) // Apply TypeConverter
 public abstract class ShoeShopDatabase extends RoomDatabase {
 
     // Define abstract methods for each DAO

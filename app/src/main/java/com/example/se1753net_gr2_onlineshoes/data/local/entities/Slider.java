@@ -4,8 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.ColumnInfo;
+import androidx.room.TypeConverters;
+
+import com.example.se1753net_gr2_onlineshoes.data.local.utils.DateConverter;
+
+import java.util.Date;
 
 @Entity(tableName = "Sliders")
+@TypeConverters(DateConverter.class) // Apply TypeConverter
 public class Slider {
     @PrimaryKey
     @NonNull
@@ -28,8 +34,8 @@ public class Slider {
     public String notes;
 
     @ColumnInfo(name = "created_at")
-    public String createdAt;
+    public Date createdAt;
 
     @ColumnInfo(name = "updated_at")
-    public String updatedAt;
+    public Date updatedAt;
 }

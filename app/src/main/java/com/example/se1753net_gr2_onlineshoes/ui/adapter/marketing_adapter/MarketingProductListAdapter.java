@@ -46,7 +46,7 @@ public class MarketingProductListAdapter extends RecyclerView.Adapter<MarketingP
 
         holder.nameTextView.setText(product.name);
         holder.descTextView.setText(product.description);
-        holder.dateTextView.setText(product.createdAt);
+        holder.dateTextView.setText(product.createdAt.toString());
         //holder.imageView.setImageResource(product);
     }
 
