@@ -60,7 +60,7 @@
         
         <!-- Main Activity -->
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.activities.sale_activities.SaleDashboardActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -14,6 +14,7 @@ public class UserRole {
 
     @ColumnInfo(name = "role_name")
     public String roleName;
+
     public UserRole(@NonNull String roleId, @NonNull String roleName) {
         this.roleId = roleId;
         this.roleName = roleName;
