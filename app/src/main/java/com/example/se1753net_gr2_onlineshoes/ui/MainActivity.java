@@ -12,11 +12,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.se1753net_gr2_onlineshoes.R;
+import com.example.se1753net_gr2_onlineshoes.ui.activities.marketing_activities.MarketingAnalyticActivity;
 import com.example.se1753net_gr2_onlineshoes.ui.activities.marketing_activities.MarketingProductListActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button BtnToMarketingProductList;
+    private Button BtnToMarketingAnalytic;
 
 
     @Override
@@ -35,6 +37,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, MarketingProductListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        BtnToMarketingAnalytic = findViewById(R.id.BtnToMarketingAnalytic);
+        BtnToMarketingAnalytic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MarketingAnalyticActivity.class);
                 startActivity(intent);
             }
         });
