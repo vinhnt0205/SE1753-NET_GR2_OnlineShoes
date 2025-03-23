@@ -50,9 +50,11 @@
             android:name=".activity.activity_login"
             android:exported="false" />
 
+
 <!--         Main Activity -->
+
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.activities.sale_activities.SaleDashboardActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -68,5 +70,6 @@
 <!--            </intent-filter>-->
 <!--        </activity>-->
     </application>
+
 
 </manifest>

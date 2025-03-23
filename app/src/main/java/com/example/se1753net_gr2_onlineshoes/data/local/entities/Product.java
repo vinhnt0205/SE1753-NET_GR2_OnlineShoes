@@ -54,5 +54,6 @@ public class Product {
     @NonNull
     @ColumnInfo(name = "updated_at")
     public Date updatedAt;
+
 }
 
