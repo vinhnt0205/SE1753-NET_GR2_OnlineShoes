@@ -10,21 +10,26 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.se1753net_gr2_onlineshoes.R;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.Product;
+import com.example.se1753net_gr2_onlineshoes.data.local.entities.ProductImage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MarketingProductListAdapter extends RecyclerView.Adapter<MarketingProductListAdapter.ProductViewHolder> {
     private List<Product> productList = new ArrayList<>();
+    private List<ProductImage> productImages = new ArrayList<>(); // Store images
 
-    public interface OnDeleteClickListener {
-        void onDelete(Product product);
-    }
 
     public MarketingProductListAdapter() {
 
+    }
+
+    public void setProductImages(List<ProductImage> images) {
+        this.productImages = images;
+        notifyDataSetChanged();
     }
 
     public void setProducts(List<Product> products) {
@@ -43,12 +48,30 @@ public class MarketingProductListAdapter extends RecyclerView.Adapter<MarketingP
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
-
         holder.nameTextView.setText(product.name);
         holder.descTextView.setText(product.description);
         holder.dateTextView.setText(product.createdAt.toString());
-        //holder.imageView.setImageResource(product);
+
+        // Find the first image for this product
+        String imageUrl = null;
+        for (ProductImage image : productImages) {
+            if (image.productId.equals(product.productId)) {
+                imageUrl = image.imageUrl;
+                break; // Stop searching once found
+            }
+        }
+
+        // Load the image using Glide
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            Glide.with(holder.itemView.getContext())
+                    .load(imageUrl)
+                    .placeholder(R.drawable.ic_launcher_background) // Default placeholder
+                    .into(holder.imageView);
+        } else {
+            holder.imageView.setImageResource(R.drawable.shoes_dashboard_icon); // Default image if no image is found
+        }
     }
+
 
     @Override
     public int getItemCount() {

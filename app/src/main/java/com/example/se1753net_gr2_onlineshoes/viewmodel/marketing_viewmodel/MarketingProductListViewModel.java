@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.Product;
+import com.example.se1753net_gr2_onlineshoes.data.local.entities.ProductImage;
 import com.example.se1753net_gr2_onlineshoes.data.repository.ProductRepository;
 
 import java.util.List;
@@ -19,14 +20,42 @@ public class MarketingProductListViewModel extends ViewModel {
     private final ProductRepository repository;
     private final CompositeDisposable disposable = new CompositeDisposable();
     private final MutableLiveData<List<Product>> productListLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<ProductImage>> productFirstImagesLiveData = new MutableLiveData<>();
 
     public MarketingProductListViewModel(ProductRepository repository) {
         this.repository = repository;
         loadProducts();
+        loadProductImages();
+    }
+
+    public MutableLiveData<List<ProductImage>> getProductFirstImagesLiveData() {
+        return productFirstImagesLiveData;
     }
 
     public LiveData<List<Product>> getProducts() {
         return productListLiveData;
+    }
+
+    public LiveData<String> getFirstImage(String productId) {
+        return repository.getFirstImageUrl(productId);
+    }
+
+    private void loadProductImages() {
+        disposable.add(repository.getFirstImagesForAllProducts()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        images -> {
+                            Log.d("MarketingProductListViewModel", "Images fetched: " + images.size());
+                            for (ProductImage image : images) {
+                                Log.d("MarketingProductListViewModel", "Image: " + image.imageUrl);
+                            }
+                            productFirstImagesLiveData.setValue(images);
+                        },
+                        throwable -> {
+                            Log.e("MarketingProductListViewModel", "Error fetching product images", throwable);
+                        }
+                ));
     }
 
     private void loadProducts() {
