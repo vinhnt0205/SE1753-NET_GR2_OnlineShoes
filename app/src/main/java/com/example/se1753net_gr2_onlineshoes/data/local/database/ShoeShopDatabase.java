@@ -23,6 +23,7 @@ import com.example.se1753net_gr2_onlineshoes.data.local.dao.ShoppingCartDao;
 import com.example.se1753net_gr2_onlineshoes.data.local.dao.SliderDao;
 import com.example.se1753net_gr2_onlineshoes.data.local.dao.UserDao;
 import com.example.se1753net_gr2_onlineshoes.data.local.dao.UserRoleDao;
+import com.example.se1753net_gr2_onlineshoes.data.local.databaseview.ProductStatisticsView;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.AdminSettings;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.Brand;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.CartItem;
@@ -49,6 +50,7 @@ import com.example.se1753net_gr2_onlineshoes.data.local.utils.DateConverter;
                 Category.class, ProductCategory.class, Feedback.class, Slider.class,
                 ProductStatistics.class, AdminSettings.class, CustomerActivitySummary.class
         },
+        views = {ProductStatisticsView.class},
         version = 1, // Increment when making schema changes
         exportSchema = false
 )

@@ -9,6 +9,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.se1753net_gr2_onlineshoes.R;
+import com.example.se1753net_gr2_onlineshoes.data.local.dao.ProductStatisticsDao;
+import com.example.se1753net_gr2_onlineshoes.data.local.database.ShoeShopDatabase;
+import com.example.se1753net_gr2_onlineshoes.data.local.entities.ProductStatistics;
 
 public class MarketingDashboardActivity extends AppCompatActivity {
 
@@ -22,5 +25,10 @@ public class MarketingDashboardActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        ShoeShopDatabase shoeShopDatabase = ShoeShopDatabase.getInstance(this);
+        ProductStatisticsDao dao = shoeShopDatabase.productStatisticsDao();
+
+        var bruh = dao.getStatsByProductId("1");
     }
 }
