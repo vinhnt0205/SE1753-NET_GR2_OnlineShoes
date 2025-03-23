@@ -134,7 +134,7 @@ public class MarketingAnalyticViewModel extends ViewModel {
                         orders -> {
                             Log.d("MarketingAnalyticVM", "Orders fetched: " + orders.size());
                             for (Order order : orders) {
-                                Log.d("MarketingAnalyticVM", "Order: " + order.trackingNumber + ", Name: " + order.shippingAddress);
+                                Log.d("MarketingAnalyticVM", "Order: " + order.getTrackingNumber() + ", Name: " + order.getShippingAddress());
                             }
                             orderListLiveData.setValue(orders);
                         },

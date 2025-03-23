@@ -39,9 +39,9 @@ public class MarketingOrderListAdapter extends RecyclerView.Adapter<MarketingOrd
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         Order order = orderList.get(position);
 
-        holder.trackingNumberTextView.setText(order.trackingNumber);
-        holder.shippingAddressTextView.setText(order.shippingAddress);
-        holder.dateTextView.setText(order.orderDate.toString());
+        holder.trackingNumberTextView.setText(order.getTrackingNumber());
+        holder.shippingAddressTextView.setText(order.getShippingAddress());
+        holder.dateTextView.setText(order.getOrderDate().toString());
         //holder.imageView.setImageResource(product);
     }
 

@@ -3,6 +3,7 @@ package com.example.se1753net_gr2_onlineshoes.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,6 +17,7 @@ import com.example.se1753net_gr2_onlineshoes.R;
 import com.example.se1753net_gr2_onlineshoes.data.local.database.ShoeShopDatabase;
 import com.example.se1753net_gr2_onlineshoes.data.local.dao.UserDao;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.User;
+import com.example.se1753net_gr2_onlineshoes.ui.activities.marketing_activities.MarketingDashboardActivity;
 
 public class activity_edit_profile extends AppCompatActivity {
     private EditText etFullName, etEmail, etMobile, etAddress;
@@ -27,6 +29,7 @@ public class activity_edit_profile extends AppCompatActivity {
     private User currentUser;
     private String userId; // Sử dụng String thay vì int
     private Button btnChangePassword; // Thêm biến này
+    private Button btnToDashboard; // Thêm biến này
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,15 @@ public class activity_edit_profile extends AppCompatActivity {
 
         initViews();
         userDao = ShoeShopDatabase.getInstance(this).userDao();
+
+        btnToDashboard = findViewById(R.id.btnToDashboard);
+        btnToDashboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity_edit_profile.this, MarketingDashboardActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // Nhận USER_ID từ Intent (dưới dạng String)
         userId = getIntent().getStringExtra("USER_ID");
