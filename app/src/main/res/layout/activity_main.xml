@@ -10,8 +10,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="To marketing Product list"
-        android:id="@+id/BtnToMarketingProductList"
+        android:text="To marketing Dashboard"
+        android:id="@+id/BtnToMarketingDashboard"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +25,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/BtnToMarketingProductList"
+        app:layout_constraintTop_toBottomOf="@+id/BtnToMarketingDashboard"
         app:layout_constraintVertical_bias="0.102" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

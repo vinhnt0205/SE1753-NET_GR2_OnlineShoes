@@ -1,9 +1,12 @@
 package com.example.se1753net_gr2_onlineshoes.ui.activities.marketing_activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -14,7 +17,8 @@ import com.example.se1753net_gr2_onlineshoes.data.local.database.ShoeShopDatabas
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.ProductStatistics;
 
 public class MarketingDashboardActivity extends AppCompatActivity {
-
+    private CardView productsCardView;
+    private CardView analyticsCardView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,9 +30,24 @@ public class MarketingDashboardActivity extends AppCompatActivity {
             return insets;
         });
 
-        ShoeShopDatabase shoeShopDatabase = ShoeShopDatabase.getInstance(this);
-        ProductStatisticsDao dao = shoeShopDatabase.productStatisticsDao();
+        productsCardView = findViewById(R.id.productsCardView);
 
-        var bruh = dao.getStatsByProductId("1");
+        productsCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MarketingDashboardActivity.this, MarketingProductListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        analyticsCardView = findViewById(R.id.analyticsCardView);
+
+        analyticsCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MarketingDashboardActivity.this, MarketingAnalyticActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

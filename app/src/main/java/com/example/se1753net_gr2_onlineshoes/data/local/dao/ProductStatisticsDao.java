@@ -37,7 +37,10 @@ public interface ProductStatisticsDao {
             "WHERE product_id = :productId")
     void updateAvgRating(String productId);
 
-   /* @Query("SELECT * FROM ProductStatisticsView")
-    Flowable<List<ProductStatisticsView>> getProductStatisticsView();*/
+    @Query("SELECT * FROM Product_Statistics WHERE product_id = :productId ORDER BY created_at ASC")
+    Flowable<List<ProductStatistics>> getStatisticsByProductId(String productId);
+
+    @Query("SELECT * FROM ProductStatisticsView")
+    Flowable<List<ProductStatisticsView>> getProductStatisticsView();
 }
 

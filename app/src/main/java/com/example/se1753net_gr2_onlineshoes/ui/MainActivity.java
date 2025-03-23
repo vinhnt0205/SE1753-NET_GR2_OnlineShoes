@@ -13,11 +13,12 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.se1753net_gr2_onlineshoes.R;
 import com.example.se1753net_gr2_onlineshoes.ui.activities.marketing_activities.MarketingAnalyticActivity;
+import com.example.se1753net_gr2_onlineshoes.ui.activities.marketing_activities.MarketingDashboardActivity;
 import com.example.se1753net_gr2_onlineshoes.ui.activities.marketing_activities.MarketingProductListActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button BtnToMarketingProductList;
+    private Button BtnToMarketingDashboard;
     private Button BtnToMarketingAnalytic;
 
 
@@ -32,11 +33,11 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        BtnToMarketingProductList = findViewById(R.id.BtnToMarketingProductList);
-        BtnToMarketingProductList.setOnClickListener(new View.OnClickListener() {
+        BtnToMarketingDashboard = findViewById(R.id.BtnToMarketingDashboard);
+        BtnToMarketingDashboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MarketingProductListActivity.class);
+                Intent intent = new Intent(MainActivity.this, MarketingDashboardActivity.class);
                 startActivity(intent);
             }
         });
