@@ -2,9 +2,9 @@ package com.example.se1753net_gr2_onlineshoes.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -13,8 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.se1753net_gr2_onlineshoes.R;
 import com.example.se1753net_gr2_onlineshoes.data.local.database.ShoeShopDatabase;
 import com.example.se1753net_gr2_onlineshoes.data.local.dao.UserDao;
+import com.example.se1753net_gr2_onlineshoes.data.local.dao.UserRoleDao;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.User;
-
+import com.example.se1753net_gr2_onlineshoes.data.local.entities.UserRole;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -25,6 +26,7 @@ public class activity_register extends AppCompatActivity {
     private RadioGroup rgGender;
     private Button btnRegister;
     private UserDao userDao;
+    private UserRoleDao userRoleDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,9 @@ public class activity_register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         initializeUI();
-        userDao = ShoeShopDatabase.getInstance(this).userDao();
+        ShoeShopDatabase db = ShoeShopDatabase.getInstance(this);
+        userDao = db.userDao();
+        userRoleDao = db.userRoleDao();
 
         btnRegister.setOnClickListener(v -> registerUser());
     }
@@ -51,27 +55,61 @@ public class activity_register extends AppCompatActivity {
     private void registerUser() {
         String fullName = etFullName.getText().toString().trim();
         String email = etEmail.getText().toString().trim();
+        String phoneNumber = etMobile.getText().toString().trim();
+        String address = etAddress.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
         String confirmPassword = etConfirmPassword.getText().toString().trim();
 
-        if (validateInput(fullName, email, password, confirmPassword)) {
-            if (userDao.getUserByEmail(email) != null) {
-                showToast("Email đã tồn tại!");
+        if (!validateInput(fullName, email, phoneNumber, address, password, confirmPassword)) {
+            return;
+        }
+
+        int selectedGenderId = rgGender.getCheckedRadioButtonId();
+        RadioButton selectedGenderRadio = findViewById(selectedGenderId);
+        String gender = (selectedGenderRadio != null) ? selectedGenderRadio.getText().toString() : "Khác";
+
+        new Thread(() -> {
+            if (userDao.checkEmailExists(email) > 0) {
+                runOnUiThread(() -> showToast("Email đã tồn tại!"));
                 return;
             }
 
-            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-            User newUser = new User(UUID.randomUUID().toString(), fullName, hashedPassword, email, null, "user");
+            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(10)); // Đảm bảo số rounds là 10
+            String userId = UUID.randomUUID().toString();
+            String roleId = "user"; // Tất cả user mặc định là "user"
+            long currentTime = System.currentTimeMillis();
+
+            User newUser = new User(
+                    userId,
+                    fullName,
+                    email,
+                    phoneNumber,
+                    address,
+                    "android.resource://" + getPackageName() + "/" + R.drawable.avatar_default,
+                    roleId,
+                    hashedPassword,
+                    currentTime,
+                    currentTime
+            );
+
             userDao.insertUser(newUser);
 
-            showToast("Đăng ký thành công!");
-            startActivity(new Intent(this, activity_login.class));
-            finish();
-        }
+            // Gán vai trò mặc định với ID riêng
+            String userRoleId = UUID.randomUUID().toString(); // ID duy nhất
+            UserRole userRole = new UserRole(userRoleId, "user");
+            userRoleDao.insertRole(userRole);
+
+            runOnUiThread(() -> {
+                showToast("Đăng ký thành công!");
+                startActivity(new Intent(activity_register.this, activity_login.class));
+                finish();
+            });
+        }).start();
+
     }
 
-    private boolean validateInput(String fullName, String email, String password, String confirmPassword) {
-        if (fullName.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+    private boolean validateInput(String fullName, String email, String phoneNumber, String address, String password, String confirmPassword) {
+        if (fullName.isEmpty() || email.isEmpty() || phoneNumber.isEmpty() || address.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             showToast("Vui lòng nhập đầy đủ thông tin!");
             return false;
         }
@@ -83,6 +121,6 @@ public class activity_register extends AppCompatActivity {
     }
 
     private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        runOnUiThread(() -> Toast.makeText(this, message, Toast.LENGTH_SHORT).show());
     }
 }
