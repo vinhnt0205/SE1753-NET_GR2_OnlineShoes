@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -34,6 +35,15 @@ public class MarketingProductListActivity extends AppCompatActivity {
             return insets;
         });
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar); // Important! This enables the ActionBar
+
+        // Enable back button
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back); // Custom back icon (optional)
+        }
+
         recyclerView = findViewById(R.id.recyclerViewProductsList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         MarketingProductListAdapter adapter = new MarketingProductListAdapter();
@@ -48,5 +58,12 @@ public class MarketingProductListActivity extends AppCompatActivity {
 
         // Observe data changes
         marketingProductListViewModel.getProducts().observe(this, adapter::setProducts);
+            marketingProductListViewModel.getProductFirstImagesLiveData().observe(this, adapter::setProductImages);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed(); // Handle back button action
+        return true;
     }
 }

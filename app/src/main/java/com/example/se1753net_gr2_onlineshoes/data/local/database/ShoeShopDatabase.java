@@ -11,6 +11,8 @@ import android.content.Context;
 
 import com.example.se1753net_gr2_onlineshoes.data.local.dao.*;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.*;
+import com.example.se1753net_gr2_onlineshoes.data.local.databaseview.ProductStatisticsView;
+import com.example.se1753net_gr2_onlineshoes.data.local.utils.DateConverter;
 
 @Database(
         entities = {
@@ -19,10 +21,11 @@ import com.example.se1753net_gr2_onlineshoes.data.local.entities.*;
                 Category.class, ProductCategory.class, Feedback.class, Slider.class,
                 ProductStatistics.class, AdminSettings.class, CustomerActivitySummary.class
         },
-        version = 3, // ⚠️ Tăng version lên 3
+        views = {ProductStatisticsView.class},
+        version = 3, // Keeping the higher version
         exportSchema = false
 )
-@TypeConverters(Converters.class)
+@TypeConverters(DateConverter.class)
 public abstract class ShoeShopDatabase extends RoomDatabase {
 
     // Define abstract methods for each DAO
@@ -52,9 +55,9 @@ public abstract class ShoeShopDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     ShoeShopDatabase.class, "shoeShopDB")
-                            //.createFromAsset("databases/shoeShop.db") // ⚠️ Chỉ bật nếu dùng pre-packaged DB
-                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3) // ⚠️ Thêm migration mới
-                            .fallbackToDestructiveMigration() // ⚠️ Xóa nếu lỗi schema
+                          //.createFromAsset("databases/shoeShop.db")
+                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3) // Ensure migrations are included
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }
@@ -62,7 +65,7 @@ public abstract class ShoeShopDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    // ⚠️ Migration từ version 1 -> 2 (Sửa lại schema)
+    // Migration from version 1 to 2
     static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
@@ -71,11 +74,10 @@ public abstract class ShoeShopDatabase extends RoomDatabase {
         }
     };
 
-    // ⚠️ Migration từ version 2 -> 3 (Sửa kiểu dữ liệu created_at và updated_at)
+    // Migration from version 2 to 3
     static final Migration MIGRATION_2_3 = new Migration(2, 3) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
-            // Tạo bảng Users mới với đúng schema
             database.execSQL("CREATE TABLE IF NOT EXISTS Users_new (" +
                     "user_id TEXT NOT NULL PRIMARY KEY, " +
                     "username TEXT, " +
@@ -85,15 +87,13 @@ public abstract class ShoeShopDatabase extends RoomDatabase {
                     "avatar_url TEXT, " +
                     "role_id TEXT, " +
                     "password_hash TEXT, " +
-                    "created_at INTEGER DEFAULT 0, " + // ⚠️ Đổi thành INTEGER
-                    "updated_at INTEGER DEFAULT 0" +   // ⚠️ Đổi thành INTEGER
+                    "created_at INTEGER DEFAULT 0, " +
+                    "updated_at INTEGER DEFAULT 0" +
                     ")");
 
-            // Copy dữ liệu từ bảng cũ sang bảng mới
             database.execSQL("INSERT INTO Users_new (user_id, username, email, phoneNumber, address, avatar_url, role_id, password_hash, created_at, updated_at) " +
                     "SELECT user_id, username, email, phoneNumber, address, avatar_url, role_id, password_hash, created_at, updated_at FROM Users");
 
-            // Xóa bảng cũ và đổi tên bảng mới thành `Users`
             database.execSQL("DROP TABLE Users");
             database.execSQL("ALTER TABLE Users_new RENAME TO Users");
         }

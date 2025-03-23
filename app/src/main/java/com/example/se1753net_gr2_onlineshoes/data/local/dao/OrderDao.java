@@ -10,6 +10,8 @@ import com.example.se1753net_gr2_onlineshoes.data.local.entities.Order;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Flowable;
+
 @Dao
 public interface OrderDao {
     @Insert
@@ -20,6 +22,9 @@ public interface OrderDao {
 
     @Delete
     void deleteOrder(Order order);
+
+    @Query("SELECT * FROM Orders")
+    Flowable<List<Order>> getAllOrders();
 
     @Query("SELECT * FROM Orders WHERE user_id = :userId")
     List<Order> getOrdersByUserId(String userId);

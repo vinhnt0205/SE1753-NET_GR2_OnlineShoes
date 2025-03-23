@@ -50,6 +50,11 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-rxjava3:$room_version") // For RxJava 3
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.15.1'
+    //implementation(libs.vico.views)       // For Android View system
+    //implementation(libs.vico.compose.m3)  // For Material 3 theming
 
     // RxJava 3
     implementation("io.reactivex.rxjava3:rxjava:3.1.10")
