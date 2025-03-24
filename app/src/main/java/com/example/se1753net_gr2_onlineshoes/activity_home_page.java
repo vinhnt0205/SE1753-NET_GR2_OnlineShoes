@@ -130,11 +130,11 @@ public class activity_home_page extends AppCompatActivity {
     private void filterProductsByCategory(String categoryId) {
         try {
             List<Product> filteredProducts = new ArrayList<>();
-            for (Product product : productList) {
+            /*for (Product product : productList) {
                 if (product.categoryId != null && product.categoryId.equals(categoryId)) {
                     filteredProducts.add(product);
                 }
-            }
+            }*/
             Log.d(TAG, "filterProductsByCategory: filteredProducts size = " + filteredProducts.size());
             ProductAdapter adapter = new ProductAdapter(this, filteredProducts);
             productRecyclerView.setAdapter(adapter);
