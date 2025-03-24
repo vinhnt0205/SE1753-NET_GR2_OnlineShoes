@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.se1753net_gr2_onlineshoes.data.ShoeShopDatabase;
+import com.example.se1753net_gr2_onlineshoes.data.local.database.ShoeShopDatabase;
 import com.example.se1753net_gr2_onlineshoes.data.adapter.CategoryAdapter;
 import com.example.se1753net_gr2_onlineshoes.data.adapter.ProductAdapter;
 import com.example.se1753net_gr2_onlineshoes.data.adapter.SliderAdapter;

@@ -58,10 +58,6 @@ public class Product {
     @ColumnInfo(name = "updated_at")
     public Date updatedAt;
 
-
-    public Product() {
-    }
-
     public Product(@NonNull String productId, String categoryId, String name, String description, double price, Double salePrice, int stock, String brandId, boolean isFeatured, String status, Date createdAt, Date updatedAt) {
         this.productId = productId;
         this.categoryId = categoryId;
