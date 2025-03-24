@@ -8,6 +8,7 @@ import androidx.room.Delete;
 
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.User;
 
+import java.util.Date;
 import java.util.List;
 
 @Dao
@@ -32,5 +33,11 @@ public interface UserDao {
 
     @Query("SELECT * FROM Users")
     List<User> getAllUsers();
+    @Query("SELECT COUNT(*) FROM Users WHERE email = :email")
+    int checkEmailExists(String email);
+    @Query("UPDATE Users SET password_hash = :newPassword, updated_at = :updatedAt WHERE user_id = :userId")
+    void updatePassword(String userId, String newPassword, Date updatedAt);
+
+
 }
 

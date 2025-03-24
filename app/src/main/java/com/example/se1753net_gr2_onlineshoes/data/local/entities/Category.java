@@ -12,6 +12,7 @@ public class Category {
     @ColumnInfo(name = "category_id")
     public String categoryId;
 
+    @NonNull
     @ColumnInfo(name = "category_name")
     public String categoryName;
 
@@ -41,4 +42,3 @@ public class Category {
         this.categoryName = categoryName;
     }
 }
-

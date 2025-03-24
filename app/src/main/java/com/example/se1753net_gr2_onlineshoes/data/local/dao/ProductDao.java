@@ -10,6 +10,8 @@ import com.example.se1753net_gr2_onlineshoes.data.local.entities.Product;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Flowable;
+
 @Dao
 public interface ProductDao {
     @Insert
@@ -25,7 +27,7 @@ public interface ProductDao {
     Product getProductById(String productId);
 
     @Query("SELECT * FROM Products")
-    List<Product> getAllProducts();
+    Flowable<List<Product>> getAllProducts();
 
     @Query("SELECT * FROM Products WHERE brand_id = :brandId")
     List<Product> getProductsByBrand(String brandId);

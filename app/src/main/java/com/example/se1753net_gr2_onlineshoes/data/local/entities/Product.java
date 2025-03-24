@@ -4,8 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.ColumnInfo;
+import androidx.room.TypeConverters;
+
+import com.example.se1753net_gr2_onlineshoes.data.local.utils.DateConverter;
+
+import java.util.Date;
 
 @Entity(tableName = "Products")
+@TypeConverters(DateConverter.class) // Apply TypeConverter
 public class Product {
     @PrimaryKey
     @NonNull
@@ -15,40 +21,48 @@ public class Product {
     @ColumnInfo(name = "category_id")
     public String categoryId;
 
+    @NonNull
     @ColumnInfo(name = "name")
     public String name;
 
     @ColumnInfo(name = "description")
     public String description;
 
+    @NonNull
     @ColumnInfo(name = "price")
-    public double price;
+    public Double price;
 
     @ColumnInfo(name = "sale_price")
-    public Double salePrice; // Nullable
+    public Double salePrice;
 
+    @NonNull
     @ColumnInfo(name = "stock")
     public int stock;
 
+    @NonNull
     @ColumnInfo(name = "brand_id")
     public String brandId;
 
     @ColumnInfo(name = "is_featured")
-    public boolean isFeatured;
+    public Boolean isFeatured;
 
+    @NonNull
     @ColumnInfo(name = "status")
-    public String status; // ENUM('Active', 'Inactive')
+    public String status;
 
+    @NonNull
     @ColumnInfo(name = "created_at")
-    public String createdAt;
+    public Date createdAt;
 
+    @NonNull
     @ColumnInfo(name = "updated_at")
-    public String updatedAt;
+    public Date updatedAt;
+
 
     public Product() {
     }
 
-    public Product(@NonNull String productId, String categoryId, String name, String description, double price, Double salePrice, int stock, String brandId, boolean isFeatured, String status, String createdAt, String updatedAt) {
+    public Product(@NonNull String productId, String categoryId, String name, String description, double price, Double salePrice, int stock, String brandId, boolean isFeatured, String status, Date createdAt, Date updatedAt) {
         this.productId = productId;
         this.categoryId = categoryId;
         this.name = name;
@@ -128,11 +142,11 @@ public class Product {
         isFeatured = featured;
     }
 
-    public String getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -152,11 +166,11 @@ public class Product {
         this.salePrice = salePrice;
     }
 
-    public String getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(String updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 }

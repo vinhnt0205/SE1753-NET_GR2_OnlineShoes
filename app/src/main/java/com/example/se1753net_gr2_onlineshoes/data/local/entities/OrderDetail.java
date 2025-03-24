@@ -12,15 +12,19 @@ public class OrderDetail {
     @ColumnInfo(name = "order_detail_id")
     public String orderDetailId;
 
+    @NonNull
     @ColumnInfo(name = "order_id")
     public String orderId;
 
+    @NonNull
     @ColumnInfo(name = "product_id")
     public String productId;
 
+    @NonNull
     @ColumnInfo(name = "quantity")
     public int quantity;
 
+    @NonNull
     @ColumnInfo(name = "price")
-    public double price;
+    public Double price;
 }
