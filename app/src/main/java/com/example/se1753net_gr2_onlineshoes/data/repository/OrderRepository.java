@@ -13,7 +13,11 @@ import io.reactivex.rxjava3.core.Flowable;
 
 public class OrderRepository {
     private final OrderDao orderDao;
+    private OnOrderClickListener listener;
 
+    public interface OnOrderClickListener {
+        void onOrderClick(Order order);
+    }
     // Primary constructor (from main) - Uses Application to initialize DAO
     public OrderRepository(Application application) {
         ShoeShopDatabase database = ShoeShopDatabase.getInstance(application);
@@ -34,4 +38,5 @@ public class OrderRepository {
     public OrderSummary getOrderSummary() {
         return orderDao.getOrderSummary();
     }
+
 }
