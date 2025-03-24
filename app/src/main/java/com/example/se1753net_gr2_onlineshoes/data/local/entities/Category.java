@@ -16,10 +16,6 @@ public class Category {
     @ColumnInfo(name = "category_name")
     public String categoryName;
 
-
-    public Category() {
-    }
-
     public Category(String categoryId, String categoryName) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;

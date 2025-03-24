@@ -20,6 +20,9 @@ public interface ProductImageDao {
     @Delete
     void deleteImage(ProductImage image);
 
+    @Query("SELECT * FROM Product_Images WHERE product_id = :productId LIMIT 1")
+    Single<ProductImage> getProductSingleImageById(String productId);
+
     @Query("SELECT * FROM Product_Images WHERE product_id = :productId")
     List<ProductImage> getImagesByProductId(String productId);
 
