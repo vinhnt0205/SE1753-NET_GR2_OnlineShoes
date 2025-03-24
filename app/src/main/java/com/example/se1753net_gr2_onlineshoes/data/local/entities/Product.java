@@ -18,9 +18,6 @@ public class Product {
     @ColumnInfo(name = "product_id")
     public String productId;
 
-    @ColumnInfo(name = "category_id")
-    public String categoryId;
-
     @NonNull
     @ColumnInfo(name = "name")
     public String name;
@@ -58,9 +55,8 @@ public class Product {
     @ColumnInfo(name = "updated_at")
     public Date updatedAt;
 
-    public Product(@NonNull String productId, String categoryId, String name, String description, double price, Double salePrice, int stock, String brandId, boolean isFeatured, String status, Date createdAt, Date updatedAt) {
+    public Product(@NonNull String productId, @NonNull String name, String description, @NonNull Double price, Double salePrice, int stock, @NonNull String brandId, Boolean isFeatured, @NonNull String status, @NonNull Date createdAt, @NonNull Date updatedAt) {
         this.productId = productId;
-        this.categoryId = categoryId;
         this.name = name;
         this.description = description;
         this.price = price;
@@ -80,14 +76,6 @@ public class Product {
 
     public void setProductId(@NonNull String productId) {
         this.productId = productId;
-    }
-
-    public String getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
     }
 
     public String getDescription() {

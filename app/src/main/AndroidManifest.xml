@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <!-- Cấp quyền Internet -->
+    <!-- Internet Access -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
@@ -23,8 +23,13 @@
             android:exported="false" />
         <activity
             android:name=".ui.activities.marketing_activities.MarketingDashboardActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Se1753net_gr2_onlineshoes" />
+            android:exported="true"
+            android:theme="@style/Theme.Se1753net_gr2_onlineshoes" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.activities.marketing_activities.MarketingProductListActivity"
             android:exported="false" />
@@ -55,20 +60,14 @@
         <activity
             android:name=".activity.activity_login"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        
-        <!-- Main Activity -->
+
+        <!-- Sales Activities -->
         <activity
             android:name=".ui.activities.sale_activities.SaleDashboardActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+        <!-- Main Activity -->
+
     </application>
 </manifest>
