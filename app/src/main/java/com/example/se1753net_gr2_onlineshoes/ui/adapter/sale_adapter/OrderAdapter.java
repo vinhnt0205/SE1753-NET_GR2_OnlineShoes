@@ -1,5 +1,7 @@
 package com.example.se1753net_gr2_onlineshoes.ui.adapter.sale_adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,8 @@ import com.example.se1753net_gr2_onlineshoes.R;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.Order;
 import java.util.List;
 import com.example.se1753net_gr2_onlineshoes.R;
+import com.example.se1753net_gr2_onlineshoes.ui.activities.sale_activities.OrderDetailsActivity;
+
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
     private final List<Order> orderList;
     private final OnOrderClickListener listener;
@@ -17,7 +21,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     public interface OnOrderClickListener {
         void onOrderClick(Order order);
     }
-
     public OrderAdapter(List<Order> orderList, OnOrderClickListener listener) {
         this.orderList = orderList;
         this.listener = listener;
@@ -30,6 +33,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         return new ViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Order order = orderList.get(position);
@@ -37,7 +41,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         holder.customerName.setText("Customer: " + order.getCustomerName());
         holder.totalCost.setText("Total: $" + order.getTotalCost());
         holder.status.setText("Status: " + order.getStatus());
-        holder.itemView.setOnClickListener(v -> listener.onOrderClick(order));
+
+        // Khi click vào item, mở OrderDetailsActivity
+        holder.itemView.setOnClickListener(v -> {
+            Context context = v.getContext();
+            Intent intent = new Intent(context, OrderDetailsActivity.class);
+            intent.putExtra("order_id", order.getOrderId());
+            context.startActivity(intent);
+        });
     }
 
     @Override

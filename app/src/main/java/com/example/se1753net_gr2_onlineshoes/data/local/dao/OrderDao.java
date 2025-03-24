@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
 
 @Dao
 public interface OrderDao {
@@ -48,6 +49,8 @@ public interface OrderDao {
             "(order_date <= :toDate OR :toDate IS NULL) " +
             "ORDER BY order_date DESC " +
             "LIMIT :limit")
-    List<Order> getFilteredOrders(String keyword, String status, Date fromDate, Date toDate, int limit);
+
+    Single<List<Order>> getFilteredOrders(String keyword, String status, Date fromDate, Date toDate, int limit);
+
 
 }

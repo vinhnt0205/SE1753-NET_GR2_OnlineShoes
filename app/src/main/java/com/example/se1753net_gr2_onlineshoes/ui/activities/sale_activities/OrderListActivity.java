@@ -21,6 +21,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 public class OrderListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private OrderAdapter orderAdapter;
@@ -31,7 +36,7 @@ public class OrderListActivity extends AppCompatActivity {
     private List<Order> orderList;
     private final int pageSize = 10;
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,17 +88,25 @@ public class OrderListActivity extends AppCompatActivity {
 
     private void loadOrders(String keyword, String status, Date from, Date to) {
         ShoeShopDatabase db = ShoeShopDatabase.getInstance(this);
-        orderList = db.orderDao().getFilteredOrders(keyword, status, from, to, pageSize);
 
-        if (orderList.isEmpty()) {
-            Toast.makeText(this, "No orders found", Toast.LENGTH_SHORT).show();
-        }
+        Disposable disposable = db.orderDao().getFilteredOrders(keyword, status, from, to, pageSize)
+                .subscribeOn(Schedulers.io())  // Chạy trên luồng nền
+                .observeOn(AndroidSchedulers.mainThread())  // Cập nhật UI trên luồng chính
+                .subscribe(
+                        orders -> {
+                            orderList = orders;
+                            orderAdapter = new OrderAdapter(orderList, order -> {
+                                Intent intent = new Intent(OrderListActivity.this, OrderDetailsActivity.class);
+                                intent.putExtra("order_id", order.getOrderId());
+                                startActivity(intent);
+                            });
+                            recyclerView.setAdapter(orderAdapter);
+                        },
+                        throwable -> {
+                            Toast.makeText(this, "Error loading orders: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                );
 
-        orderAdapter = new OrderAdapter(orderList, order -> {
-            Intent intent = new Intent(OrderListActivity.this, OrderDetailsActivity.class);
-            intent.putExtra("order_id", order.getOrderId());
-            startActivity(intent);
-        });
-        recyclerView.setAdapter(orderAdapter);
+        compositeDisposable.add(disposable); // Thêm vào danh sách quản lý RxJava
     }
 }

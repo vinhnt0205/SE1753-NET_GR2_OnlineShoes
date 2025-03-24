@@ -24,6 +24,8 @@ public class MarketingDashboardActivity extends AppCompatActivity {
     private CardView analyticsCardView;
     private CardView loginCardView;
     private CardView salesCardView;
+    private CardView OrderListActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +73,15 @@ public class MarketingDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MarketingDashboardActivity.this, SaleDashboardActivity.class);
+                startActivity(intent);
+            }
+        });
+        OrderListActivity = findViewById(R.id.buttonToOrderListActivity);
+
+        OrderListActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MarketingDashboardActivity.this, OrderListActivity.class);
                 startActivity(intent);
             }
         });
