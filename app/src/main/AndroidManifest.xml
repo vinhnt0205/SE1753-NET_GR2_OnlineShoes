@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <!-- Internet Access -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,27 +15,27 @@
         android:theme="@style/Theme.Se1753net_gr2_onlineshoes"
         tools:targetApi="31">
         <activity
-            android:name=".ProductDetailActitivty"
+            android:name=".ui.activities.marketing_activities.MarketingProductDetailActivity"
             android:exported="false" />
-        
-        <!-- Marketing Activities -->
+        <activity
+            android:name=".ProductDetailActitivty"
+            android:exported="false" /> <!-- Marketing Activities -->
         <activity
             android:name=".ui.activities.marketing_activities.MarketingAnalyticActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.marketing_activities.MarketingDashboardActivity"
             android:exported="true"
-            android:theme="@style/Theme.Se1753net_gr2_onlineshoes" >
+            android:theme="@style/Theme.Se1753net_gr2_onlineshoes">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.activities.marketing_activities.MarketingProductListActivity"
-            android:exported="false" />
-        
-        <!-- User Authentication and Profile Activities -->
+            android:exported="false" /> <!-- User Authentication and Profile Activities -->
         <activity
             android:name=".activity.activity_edit_profile"
             android:exported="false" />
@@ -46,9 +47,13 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:host="reset-password" android:scheme="se1753net_gr2_onlineshoes" />
+
+                <data
+                    android:host="reset-password"
+                    android:scheme="se1753net_gr2_onlineshoes" />
             </intent-filter>
         </activity>
         <activity
@@ -59,15 +64,10 @@
             android:exported="false" />
         <activity
             android:name=".activity.activity_login"
-            android:exported="true">
-        </activity>
-
-        <!-- Sales Activities -->
+            android:exported="true"></activity> <!-- Sales Activities -->
         <activity
             android:name=".ui.activities.sale_activities.SaleDashboardActivity"
-            android:exported="true">
-        </activity>
-        <!-- Main Activity -->
-
+            android:exported="true"></activity>
     </application>
+
 </manifest>

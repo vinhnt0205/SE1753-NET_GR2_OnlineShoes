@@ -1,5 +1,6 @@
 package com.example.se1753net_gr2_onlineshoes.data.local.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -24,7 +25,10 @@ public interface ProductDao {
     void deleteProduct(Product product);
 
     @Query("SELECT * FROM Products WHERE product_id = :productId")
-    Product getProductById(String productId);
+    LiveData<Product> getProductById(String productId);
+
+    @Query("UPDATE Products SET name = :name, description = :description, price = :price, status = :status WHERE product_id = :productId")
+    void updateProduct(String productId, String name, String description, double price, String status);
 
     @Query("SELECT * FROM Products")
     Flowable<List<Product>> getAllProducts();
