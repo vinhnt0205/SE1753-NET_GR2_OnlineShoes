@@ -53,16 +53,22 @@ public class activity_login extends AppCompatActivity {
             new Thread(() -> {
                 User user = userDao.getUserByEmail(email);
                 if (user != null && checkLogin(email, password)) {
+                    // 🔹 Lưu userId vào SharedPreferences
+                    SharedPreferences.Editor editor = userPreferences.edit();
+                    editor.putString("userId", user.userId);
+                    editor.putBoolean("isLoggedIn", true);
+                    editor.apply();
+
                     runOnUiThread(() -> {
                         Toast.makeText(activity_login.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(activity_login.this, activity_edit_profile.class);
-                        intent.putExtra("USER_ID", user.userId); // Truyền userId là String
                         startActivity(intent);
                         finish();
                     });
                 }
             }).start();
         });
+
 
 
         tvRegister.setOnClickListener(v -> startActivity(new Intent(activity_login.this, activity_register.class)));
