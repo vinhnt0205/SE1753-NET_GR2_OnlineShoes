@@ -62,19 +62,26 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
+            android:name=".activity.activity_product_detail"
+            android:exported="false" />
+        <activity
+            android:name=".activity.activity_cart_detail"
+            android:exported="false" />
+        <activity
             android:name=".activity.activity_forgot_password"
             android:exported="false" />
         <activity
             android:name=".activity.activity_register"
             android:exported="false" />
         <activity
-            android:name=".activity.activity_product_detail"
+            android:name=".ActivityHomePage"
             android:exported="false" />
+
+<!--        <activity-->
+<!--            android:name=".activity.activity_login"-->
+<!--            android:exported="false" /> &lt;!&ndash; Main Activity &ndash;&gt;-->
         <activity
             android:name=".activity.activity_login"
-            android:exported="false" /> <!-- Main Activity -->
-        <activity
-            android:name=".ActivityHomePage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

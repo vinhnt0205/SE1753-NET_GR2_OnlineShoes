@@ -15,7 +15,7 @@ public class ProductWithImages {
 //    @Relation(parentColumn = "product_id", entityColumn = "product_id")
 //    public List<ProductImage> images;
 
-      public int product_id;
+      public String product_id;
 
       public String name;
 

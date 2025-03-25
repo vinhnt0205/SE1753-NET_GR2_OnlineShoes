@@ -55,5 +55,14 @@ public class Product {
     @ColumnInfo(name = "updated_at")
     public Date updatedAt;
 
+    public Product(@NonNull String productId, @NonNull String name, String description, @NonNull Double price, Double salePrice,  @NonNull Date createdAt, @NonNull Date updatedAt) {
+        this.productId = productId;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.salePrice = salePrice;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 }
 

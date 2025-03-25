@@ -2,6 +2,7 @@ package com.example.se1753net_gr2_onlineshoes;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
+import com.example.se1753net_gr2_onlineshoes.activity.activity_cart_detail;
 import com.example.se1753net_gr2_onlineshoes.data.local.database.ShoeShopDatabase;
 import com.example.se1753net_gr2_onlineshoes.data.adapter.CategoryAdapter;
 import com.example.se1753net_gr2_onlineshoes.data.adapter.ProductAdapter;
@@ -25,12 +27,15 @@ import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ActivityHomePage extends AppCompatActivity {
 
-
+    private TextView cartBadge;
+    private ImageView cartIconView;
     private ImageView sliderViewPager;
     private RecyclerView categoryRecyclerView, productRecyclerView, latestPostsRecyclerView;
 //    private Handler sliderHandler = new Handler();
@@ -43,7 +48,15 @@ public class ActivityHomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate: Starting activity_home_page");
         setContentView(R.layout.activity_home_page);
-
+        cartIconView =  findViewById(R.id.cart_icon);
+        cartBadge = findViewById(R.id.cart_badge);
+        cartIconView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityHomePage.this, activity_cart_detail.class);
+                startActivity(intent);
+            }
+        });
          sliderViewPager = findViewById(R.id.sliderView);
         categoryRecyclerView = findViewById(R.id.recyclerViewCategory);
         productRecyclerView = findViewById(R.id.recyclerViewPopular);
@@ -52,6 +65,7 @@ public class ActivityHomePage extends AppCompatActivity {
         setupSlider();
         setupCategoryFilter();
         setupProductList();
+        updateCartBadge();
 //        setupSidebar();
     }
 
@@ -212,6 +226,32 @@ public class ActivityHomePage extends AppCompatActivity {
         });
     }
 
+//    @Override
+//    public void onCartUpdated() {
+//        updateCartBadge();
+//    }
+
+    public void updateCartBadge() {
+//        TextView badgeCount = findViewById(R.id.badge_count);
+//        if (count > 0) {
+//            badgeCount.setVisibility(View.VISIBLE);
+//            badgeCount.setText(String.valueOf(count));
+//        } else {
+//            badgeCount.setVisibility(View.GONE);
+//        }
+
+        new Thread(() -> {
+            int cartSize = ShoeShopDatabase.getInstance(this).cartItemDao().getCartItemCount();
+            runOnUiThread(() -> {
+                if (cartSize > 0) {
+                    cartBadge.setText(String.valueOf(cartSize));
+                    cartBadge.setVisibility(View.VISIBLE);
+                } else {
+                    cartBadge.setVisibility(View.GONE);
+                }
+            });
+        }).start();
+    }
 //    private List<Post> getLatestPosts() {
 //        return DatabaseHelper.getInstance(this).postDao().getLatestPosts();
 //    }

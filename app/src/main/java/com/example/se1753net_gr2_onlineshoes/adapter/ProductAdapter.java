@@ -2,7 +2,6 @@ package com.example.se1753net_gr2_onlineshoes.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.pdf.LoadParams;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,12 +17,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.se1753net_gr2_onlineshoes.activity.activity_product_detail;
 import com.example.se1753net_gr2_onlineshoes.R;
+import com.example.se1753net_gr2_onlineshoes.data.local.dao.CartItemDao;
+import com.example.se1753net_gr2_onlineshoes.data.local.dao.ShoppingCartDao;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.CartItem;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.Product;
-import com.example.se1753net_gr2_onlineshoes.data.local.entities.ProductImage;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.ProductWithImages;
+import com.example.se1753net_gr2_onlineshoes.data.local.entities.ShoppingCart;
+import com.example.se1753net_gr2_onlineshoes.data.session.SessionManager;
 
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
@@ -31,6 +36,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private List<Product> productList;
 
     private List<ProductWithImages> productWithImagesList;
+
+    private ShoppingCartDao shoppingCartDao;
+
+    private CartItemDao cartItemDao;
 
     public  ProductAdapter(Context context, List<Product> productList) {
         this.context = context;
@@ -71,11 +80,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 //                    .load(productWithImages.images.get(0).imageUrl)
 //                    .into(holder.ivThumbnail);
 //        }
-//        // Khi click vào item sản phẩm chuyển sang màn hình chi tiết
-//        holder.itemView.setOnClickListener(v -> {
-//            Intent intent = new Intent(context, activity_product_detail.class);
-//            context.startActivity(intent);
-//        });
+        // Khi click vào item sản phẩm chuyển sang màn hình chi tiết
 
         Log.d(product.image_url, "onBindViewHolder: ");
         // Load ảnh sản phẩm với Glide (sử dụng image_url mới)
@@ -90,23 +95,28 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
 
         // Khi click vào item sản phẩm → Chuyển sang màn hình chi tiết
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, activity_product_detail.class);
+        View.OnClickListener openProductDetail = v -> {
+            Context itemContext = holder.itemView.getContext(); // Lấy context từ ViewHolder
+            Intent intent = new Intent(itemContext, activity_product_detail.class);
             intent.putExtra("product_id", product.product_id);
             intent.putExtra("product_name", product.name);
             intent.putExtra("product_description", product.description);
             intent.putExtra("product_price", product.sale_price);
             intent.putExtra("product_image", product.image_url);
             context.startActivity(intent);
-        });
+        };
+
+        holder.tvTitle.setOnClickListener(openProductDetail);
+        holder.ivThumbnail.setOnClickListener(openProductDetail);
+
 
 
         // Xử lý nút "Buy"
-        holder.btnBuy.setOnClickListener(v -> {
+        holder.btnBuy.setOnClickListener(v ->
+                addToCart(new Product(product.product_id, product.name, product.description, product.price, product.sale_price,new Date(), new Date())));
             // Thêm sản phẩm vào giỏ hàng hoặc chuyển đến màn hình thanh toán
 
 
-        });
 
         // Xử lý nút "Feedback"
         holder.btnFeedback.setOnClickListener(v -> {
@@ -135,8 +145,42 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
     }
 
-//    private void addToCart(Product product) {
-//        CartItem cartItem = new CartItem()
-//    }
+    private void addToCart(Product product) {
+        SessionManager sessionManager = new SessionManager(context);
+        String userId = sessionManager.getUserId();
+
+        Log.d(">>>>>>UserId", userId);
+
+        if (userId == null) {
+            Toast.makeText(context, "Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ShoppingCart cart = getOrCreateCart(userId);
+
+        Log.d(">>>>>>>Cart", cart.cartId);
+        CartItem existingItem = cartItemDao.getCartItem(cart.getCartId(), product.productId);
+
+        if (existingItem != null) {
+            // Sản phẩm đã có trong giỏ hàng, tăng số lượng
+            existingItem.quantity += 1;
+            cartItemDao.updateCartItem(existingItem);
+        } else {
+            // Thêm sản phẩm mới vào giỏ hàng
+            CartItem cartItem = new CartItem(UUID.randomUUID().toString(), cart.getCartId(), product.productId, 1);
+            cartItemDao.insertCartItem(cartItem);
+        }
+
+        Toast.makeText(context, "Đã thêm vào giỏ hàng!", Toast.LENGTH_SHORT).show();
+    }
+
+    private ShoppingCart getOrCreateCart(String userId) {
+        ShoppingCart cart = shoppingCartDao.getCartByUser(userId);
+        if (cart == null) {
+            cart = new ShoppingCart(UUID.randomUUID().toString(), userId, new Date());
+            shoppingCartDao.insertCart(cart);
+        }
+        return cart;
+    }
 
 }

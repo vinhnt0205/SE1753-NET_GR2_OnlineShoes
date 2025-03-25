@@ -24,28 +24,60 @@
                 android:layout_marginHorizontal="16dp">
 
                 <EditText
-                    android:id="@+id/editTextText"
+                    android:id="@+id/editTextSearch"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:padding="8dp"
-                    android:drawableStart="@mipmap/search_icon"
-                    android:drawablePadding="8dp"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:text="Search anything..." />
+                    android:hint="Search anything..."
+                    android:inputType="text" />
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/search_icon"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_weight="0"
-                    android:background="@color/design_default_color_primary_dark"
                     android:padding="12dp"
-                    app:srcCompat="@mipmap/settings" />
+                    android:src="@mipmap/search_icon" />
 
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp">
+
+                    <ImageView
+                        android:id="@+id/cart_icon"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:padding="12dp"
+
+                        app:srcCompat="@mipmap/carts" />
+
+                    <TextView
+                        android:id="@+id/cart_badge"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="end|top"
+                        android:background="@drawable/circle_badge"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/badge_count"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="end|top"
+                        android:background="@drawable/badge_bg"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp"
+                        android:visibility="gone"/>
+                </FrameLayout>
             </LinearLayout>
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

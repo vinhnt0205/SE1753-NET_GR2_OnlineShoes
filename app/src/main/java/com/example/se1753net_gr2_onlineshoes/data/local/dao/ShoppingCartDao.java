@@ -2,6 +2,7 @@ package com.example.se1753net_gr2_onlineshoes.data.local.dao;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 import androidx.room.Delete;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Dao
 public interface ShoppingCartDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertCart(ShoppingCart cart);
 
     @Delete
@@ -20,4 +21,8 @@ public interface ShoppingCartDao {
 
     @Query("SELECT * FROM Shopping_Cart WHERE user_id = :userId")
     ShoppingCart getCartByUser(String userId);
+
+
+
+
 }

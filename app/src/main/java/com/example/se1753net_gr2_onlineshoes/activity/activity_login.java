@@ -16,6 +16,7 @@ import com.example.se1753net_gr2_onlineshoes.R;
 import com.example.se1753net_gr2_onlineshoes.data.local.database.ShoeShopDatabase;
 import com.example.se1753net_gr2_onlineshoes.data.local.dao.UserDao;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.User;
+import com.example.se1753net_gr2_onlineshoes.data.session.SessionManager;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -26,11 +27,14 @@ public class activity_login extends AppCompatActivity {
     private TextView tvRegister, tvForgotPassword;
     private UserDao userDao;
     private SharedPreferences userPreferences; // Lưu thông tin user
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        sessionManager = new SessionManager(this);
 
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
@@ -55,6 +59,7 @@ public class activity_login extends AppCompatActivity {
                 if (user != null && checkLogin(email, password)) {
                     runOnUiThread(() -> {
                         Toast.makeText(activity_login.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                        sessionManager.saveUserId(user.userId);
                         Intent intent = new Intent(activity_login.this, activity_edit_profile.class);
                         intent.putExtra("USER_ID", user.userId); // Truyền userId là String
                         startActivity(intent);
