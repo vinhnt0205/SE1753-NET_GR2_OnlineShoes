@@ -56,6 +56,7 @@ public class activity_login extends AppCompatActivity {
                     // 🔹 Lưu userId vào SharedPreferences
                     SharedPreferences.Editor editor = userPreferences.edit();
                     editor.putString("userId", user.userId);
+                    editor.putString("user_email", email);
                     editor.putBoolean("isLoggedIn", true);
                     editor.apply();
 
