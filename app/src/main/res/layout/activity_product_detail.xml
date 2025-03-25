@@ -18,7 +18,8 @@
             android:id="@+id/ivProductThumbnail"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background" />
 
         <TextView
             android:id="@+id/tvProductTitle"
@@ -41,7 +42,8 @@
             android:layout_height="wrap_content"
             android:text="$100.00"
             android:paddingTop="4dp"
-            android:textColor="#888888" />
+            android:textColor="#888888"
+            />
 
         <TextView
             android:id="@+id/tvSalePrice"
@@ -60,20 +62,16 @@
 
             <Button
                 android:id="@+id/btnBuy"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Add Cart"
-                android:textSize="12sp" />
+                android:text="Buy" />
 
             <Button
                 android:id="@+id/btnFeedback"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="Feedback"
-                android:textSize="12sp"
-                android:layout_marginStart="8dp" />
+                android:layout_marginStart="8dp"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

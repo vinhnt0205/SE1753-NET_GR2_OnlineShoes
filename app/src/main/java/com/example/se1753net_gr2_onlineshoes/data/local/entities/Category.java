@@ -16,9 +16,21 @@ public class Category {
     @ColumnInfo(name = "category_name")
     public String categoryName;
 
+    @ColumnInfo(name = "image_url")
+    public String image_url;
+
     public Category(String categoryId, String categoryName) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
+
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 
     @NonNull

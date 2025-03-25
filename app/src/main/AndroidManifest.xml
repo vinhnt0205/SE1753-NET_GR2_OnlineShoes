@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <!-- Internet Access -->
+    <!-- Cấp quyền Internet -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -15,24 +15,26 @@
         android:theme="@style/Theme.Se1753net_gr2_onlineshoes"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activities.marketing_activities.MarketingProductDetailActivity"
+            android:name=".activity.activity_order_error"
             android:exported="false" />
         <activity
-            android:name=".ProductDetailActitivty"
-            android:exported="false" /> <!-- Marketing Activities -->
-        <activity
-            android:name=".ui.activities.marketing_activities.MarketingAnalyticActivity"
+            android:name=".activity.activity_order_completion"
             android:exported="false" />
+        <activity
+            android:name=".activity.activity_cart_contact"
+            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".activity.activity_cart_detail"-->
+<!--            android:exported="false" />-->
+        <!-- android:name=".ui.activity_home_page" -->
+        <!-- android:exported="false" /> &lt;!&ndash; Marketing Activities &ndash;&gt; -->
+        <!-- <activity -->
+        <!-- android:name=".ui.activities.marketing_activities.MarketingAnalyticActivity" -->
+        <!-- android:exported="false" /> -->
         <activity
             android:name=".ui.activities.marketing_activities.MarketingDashboardActivity"
-            android:exported="true"
-            android:theme="@style/Theme.Se1753net_gr2_onlineshoes">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false"
+            android:theme="@style/Theme.Se1753net_gr2_onlineshoes" />
         <activity
             android:name=".ui.activities.marketing_activities.MarketingProductListActivity"
             android:exported="false" /> <!-- User Authentication and Profile Activities -->
@@ -44,17 +46,20 @@
             android:exported="false" />
         <activity
             android:name=".activity.activity_reset_password"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+            android:exported="false">
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.VIEW" /> -->
 
-                <data
-                    android:host="reset-password"
-                    android:scheme="se1753net_gr2_onlineshoes" />
-            </intent-filter>
+
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- <category android:name="android.intent.category.BROWSABLE" /> -->
+
+
+            <!-- <data -->
+            <!-- android:host="reset-password" -->
+            <!-- android:scheme="se1753net_gr2_onlineshoes" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".activity.activity_forgot_password"
@@ -63,11 +68,20 @@
             android:name=".activity.activity_register"
             android:exported="false" />
         <activity
-            android:name=".activity.activity_login"
-            android:exported="true"></activity> <!-- Sales Activities -->
+            android:name=".activity.activity_product_detail"
+            android:exported="false" />
         <activity
-            android:name=".ui.activities.sale_activities.SaleDashboardActivity"
-            android:exported="true"></activity>
+            android:name=".activity.activity_login"
+            android:exported="false" /> <!-- Main Activity -->
+        <activity
+            android:name=".ActivityHomePage"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

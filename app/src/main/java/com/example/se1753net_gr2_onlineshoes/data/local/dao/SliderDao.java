@@ -1,7 +1,9 @@
 package com.example.se1753net_gr2_onlineshoes.data.local.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 import androidx.room.Delete;
@@ -12,7 +14,7 @@ import java.util.List;
 
 @Dao
 public interface SliderDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertSlider(Slider slider);
 
     @Update
@@ -23,5 +25,8 @@ public interface SliderDao {
 
     @Query("SELECT * FROM Sliders WHERE status = 'Active'")
     List<Slider> getActiveSliders();
+//    LiveData<Slider> getActiveSliders();
+
 }
+
 

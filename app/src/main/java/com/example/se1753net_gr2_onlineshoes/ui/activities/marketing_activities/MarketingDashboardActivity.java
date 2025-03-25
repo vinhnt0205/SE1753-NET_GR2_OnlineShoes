@@ -13,17 +13,16 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.se1753net_gr2_onlineshoes.R;
 import com.example.se1753net_gr2_onlineshoes.activity.activity_login;
-import com.example.se1753net_gr2_onlineshoes.data.local.dao.ProductStatisticsDao;
-import com.example.se1753net_gr2_onlineshoes.data.local.database.ShoeShopDatabase;
-import com.example.se1753net_gr2_onlineshoes.data.local.entities.ProductStatistics;
-import com.example.se1753net_gr2_onlineshoes.ui.activities.sale_activities.OrderListActivity;
 import com.example.se1753net_gr2_onlineshoes.ui.activities.sale_activities.SaleDashboardActivity;
+import com.example.se1753net_gr2_onlineshoes.ActivityHomePage;
 
 public class MarketingDashboardActivity extends AppCompatActivity {
     private CardView productsCardView;
     private CardView analyticsCardView;
     private CardView loginCardView;
     private CardView salesCardView;
+
+    private CardView usersProductView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,5 +73,19 @@ public class MarketingDashboardActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        usersProductView = findViewById(R.id.userProductView);
+
+        usersProductView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MarketingDashboardActivity.this, ActivityHomePage.class);
+                startActivity(intent);
+            }
+        });
+
+
+
     }
+
 }

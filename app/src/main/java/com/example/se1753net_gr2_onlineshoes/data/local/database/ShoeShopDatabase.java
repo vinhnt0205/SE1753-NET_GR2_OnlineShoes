@@ -22,7 +22,7 @@ import com.example.se1753net_gr2_onlineshoes.data.local.utils.DateConverter;
                 ProductStatistics.class, AdminSettings.class, CustomerActivitySummary.class
         },
         views = {ProductStatisticsView.class},
-        version = 3, // Keeping the higher version
+        version = 5, // Keeping the higher version
         exportSchema = false
 )
 @TypeConverters(DateConverter.class)
@@ -55,7 +55,7 @@ public abstract class ShoeShopDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     ShoeShopDatabase.class, "shoeShopDB")
-                            .createFromAsset("databases/shoeShop.db")
+                          //.createFromAsset("databases/shoeShop.db")
                             .addMigrations(MIGRATION_1_2, MIGRATION_2_3) // Ensure migrations are included
                             .fallbackToDestructiveMigration()
                             .build();
@@ -96,6 +96,9 @@ public abstract class ShoeShopDatabase extends RoomDatabase {
 
             database.execSQL("DROP TABLE Users");
             database.execSQL("ALTER TABLE Users_new RENAME TO Users");
+
+            // ✅ 2. Thêm cột image_url vào bảng category
+            database.execSQL("ALTER TABLE Categories ADD COLUMN image_url TEXT");
         }
     };
 }

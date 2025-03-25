@@ -2,6 +2,7 @@ package com.example.se1753net_gr2_onlineshoes.data.local.dao;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Delete;
 
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Dao
 public interface OrderDetailDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertOrderDetail(OrderDetail orderDetail);
 
     @Delete

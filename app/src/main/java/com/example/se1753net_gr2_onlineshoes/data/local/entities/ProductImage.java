@@ -2,6 +2,7 @@ package com.example.se1753net_gr2_onlineshoes.data.local.entities;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 import androidx.room.ColumnInfo;
 import androidx.room.TypeConverters;
@@ -10,7 +11,10 @@ import com.example.se1753net_gr2_onlineshoes.data.local.utils.DateConverter;
 
 import java.util.Date;
 
-@Entity(tableName = "Product_Images")
+@Entity(tableName = "Product_Images", foreignKeys = @ForeignKey(entity = Product.class,
+        parentColumns = "product_id",
+        childColumns = "product_id",
+        onDelete = ForeignKey.CASCADE))
 @TypeConverters(DateConverter.class) // Apply TypeConverter
 public class ProductImage {
     @PrimaryKey
@@ -27,4 +31,14 @@ public class ProductImage {
 
     @ColumnInfo(name = "created_at")
     public Date createdAt;
+
+    public ProductImage() {
+    }
+
+//    public void ProductImageWithConstructor(@NonNull String imageId, Date createdAt, String imageUrl, @NonNull String productId) {
+//        this.imageId = imageId;
+//        this.createdAt = createdAt;
+//        this.imageUrl = imageUrl;
+//        this.productId = productId;
+//    }
 }

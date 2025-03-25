@@ -38,4 +38,19 @@ public class Slider {
 
     @ColumnInfo(name = "updated_at")
     public Date updatedAt;
+
+//    public Slider(int i, String s, String s1, String s2, int i1, int i2) {
+//    }
+
+
+    public Slider(@NonNull String sliderId, Date updatedAt, String notes, String status, String backlink, String imageUrl, String title, Date createdAt) {
+        this.sliderId = sliderId;
+        this.updatedAt = updatedAt;
+        this.notes = notes;
+        this.status = status;
+        this.backlink = backlink;
+        this.imageUrl = imageUrl;
+        this.title = title;
+        this.createdAt = createdAt;
+    }
 }
