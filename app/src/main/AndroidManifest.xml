@@ -15,6 +15,12 @@
         android:theme="@style/Theme.Se1753net_gr2_onlineshoes"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activities.marketing_activities.MarketingSliderImageViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.marketing_activities.MarketingSliderListActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.marketing_activities.MarketingProductDetailActivity"
             android:exported="false" />
         <activity
@@ -67,10 +73,10 @@
             android:exported="false" />
         <activity
             android:name=".activity.activity_login"
-            android:exported="true"></activity> <!-- Sales Activities -->
+            android:exported="true" /> <!-- Sales Activities -->
         <activity
             android:name=".ui.activities.sale_activities.SaleDashboardActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>

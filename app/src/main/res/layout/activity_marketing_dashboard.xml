@@ -246,6 +246,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:id="@+id/sliderCardView"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 app:cardElevation="20dp"
@@ -257,7 +258,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/grocName"
-                        android:text="PlaceHolder"
+                        android:text="Sliders"
                         android:textSize="20sp"
                         android:textColor="@color/lavender"
                         android:fontFamily="@font/poppins_semibold"
