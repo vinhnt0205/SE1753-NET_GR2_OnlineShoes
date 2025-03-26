@@ -24,9 +24,12 @@ import com.example.se1753net_gr2_onlineshoes.ui.adapter.marketing_adapter.Market
 import com.example.se1753net_gr2_onlineshoes.viewmodel.factory.MarketingSliderListViewModelFactory;
 import com.example.se1753net_gr2_onlineshoes.viewmodel.marketing_viewmodel.MarketingSliderListViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.carousel.CarouselLayoutManager;
 import com.google.android.material.carousel.CarouselStrategy;
 import com.google.android.material.carousel.HeroCarouselStrategy;
+import com.google.android.material.search.SearchBar;
 
 public class MarketingSliderListActivity extends AppCompatActivity {
 
@@ -36,6 +39,11 @@ public class MarketingSliderListActivity extends AppCompatActivity {
     private MarketingSliderListViewModel marketingSliderListViewModel;
 
     TextView titleTextView , statusTextView, createdAtTextView, updatedAtTextView, filterTypeTextView;
+
+    private MaterialButton btnFilterInactiveSlider, btnFilterActiveSlider;
+
+    MaterialButtonToggleGroup toggleButtonGroup;
+    private SearchBar searchBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +55,14 @@ public class MarketingSliderListActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         carouselRecyclerView = findViewById(R.id.carouselRecyclerView);
         toolbar = findViewById(R.id.toolbarSliderList);
+        filterTypeTextView = findViewById(R.id.tvSliderFilterType);
+        btnFilterInactiveSlider = findViewById(R.id.btnFilterInactiveSlider);
+        btnFilterActiveSlider = findViewById(R.id.btnFilterActiveSlider);
+        toggleButtonGroup = findViewById(R.id.toggleButtonGroup);
+        //searchBar = findViewById(R.id.searchBar);
         setSupportActionBar(toolbar);
 
         // 1. Create HeroCarouselStrategy
@@ -83,8 +97,8 @@ public class MarketingSliderListActivity extends AppCompatActivity {
         MarketingSliderListViewModelFactory factory = new MarketingSliderListViewModelFactory(repository);
         marketingSliderListViewModel = new ViewModelProvider(this, factory).get(MarketingSliderListViewModel.class);
 
-        // Observe data changes
-        marketingSliderListViewModel.getsliderlistlivedata().observe(this, adapter::setSliderList);
+        // Observe filtered data
+        marketingSliderListViewModel.getSliderListLiveData().observe(this, adapter::setSliderList);
 
         LinearSnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(carouselRecyclerView);
@@ -109,6 +123,26 @@ public class MarketingSliderListActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+        toggleButtonGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+            if (!isChecked) {
+                // If no button is selected, show all sliders
+                marketingSliderListViewModel.setFilterStatus(null);
+                filterTypeTextView.setText("All Sliders");
+                return;
+            }
+
+            if (checkedId == R.id.btnFilterInactiveSlider) {
+                marketingSliderListViewModel.setFilterStatus("Inactive");
+                filterTypeTextView.setText("Inactive Sliders");
+            } else if (checkedId == R.id.btnFilterActiveSlider) {
+                marketingSliderListViewModel.setFilterStatus("Active");
+                filterTypeTextView.setText("Active Sliders");
+            }
+        });
+
+
     }
 
     // Method to update UI with focused slider info
