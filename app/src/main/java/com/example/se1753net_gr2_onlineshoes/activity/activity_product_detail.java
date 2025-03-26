@@ -1,5 +1,6 @@
 package com.example.se1753net_gr2_onlineshoes.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -13,8 +14,13 @@ import com.example.se1753net_gr2_onlineshoes.R;
 
 public class activity_product_detail extends AppCompatActivity {
 
+    private Context _context;
     private ImageView ivProductImage;
     private TextView tvProductName, tvProductDescription, tvOriginalPrice, tvSalePrice;
+
+//    public activity_product_detail(Context context) {
+//        this._context = context;
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

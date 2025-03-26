@@ -9,29 +9,29 @@ import java.util.List;
 public class ProductWithImages {
 
 
-//    @Embedded
-//    public Product product;
+    @Embedded
+    public Product product;
+
+    @Relation(parentColumn = "product_id", entityColumn = "product_id")
+    public List<ProductImage> images;
+
+//      public String product_id;
 //
-//    @Relation(parentColumn = "product_id", entityColumn = "product_id")
-//    public List<ProductImage> images;
-
-      public String product_id;
-
-      public String name;
-
-      public String description;
-
-      public double price;
-
-      public int stock;
-
-      public double sale_price;
-
-      public String image_url;
-
-    public Date createdAt;
-
-    public Date updatedAt;
+//      public String name;
+//
+//      public String description;
+//
+//      public double price;
+//
+//      public int stock;
+//
+//      public double sale_price;
+//
+//      public String image_url;
+//
+//    public Date createdAt;
+//
+//    public Date updatedAt;
 
 
 }

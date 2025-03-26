@@ -4,11 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.se1753net_gr2_onlineshoes.R;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.Category;
 
@@ -43,6 +45,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         Category category = categoryList.get(position);
         holder.tvCategoryName.setText(category.categoryName);
+        if(category.image_url != null) {
+            String thumbnailUrl = category.image_url;
+            Glide.with(context).load(thumbnailUrl).into(holder.tvCategoryImage);
+        }
+
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onCategoryClick(category.categoryId);
@@ -52,14 +59,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @Override
     public int getItemCount() {
-        return 0;
+        return categoryList.size();
     }
 
     static class CategoryViewHolder extends RecyclerView.ViewHolder {
+        ImageView tvCategoryImage;
+
         TextView tvCategoryName;
 
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvCategoryImage = itemView.findViewById(R.id.categoryImage);
             tvCategoryName = itemView.findViewById(R.id.categoryName);
         }
     }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.se1753net_gr2_onlineshoes.R;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.Slider;
 
@@ -37,7 +38,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
     public void onBindViewHolder(@NonNull SliderViewHolder holder, int position) {
         Slider slider = sliderList.get(position);
         holder.title.setText(slider.title);
-//        Glide.with(context).load(slider.imageUrl).into(holder.image);
+        Glide.with(context).load(slider.imageUrl).into(holder.image);
 
 //        holder.itemView.setOnClickListener(v -> {
 //            Intent intent = new Intent(context, WebViewActivity.class);

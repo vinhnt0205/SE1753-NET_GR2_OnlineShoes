@@ -1,23 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.activity_cart_detail">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <!-- Giữ phần giỏ hàng cố định -->
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:elevation="4dp">
 
-        <!-- Danh sách giỏ hàng -->
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp"
-            android:layout_height="match_parent">
+            android:padding="16dp">
 
             <TextView
                 android:id="@+id/tv_cart_title"
@@ -25,14 +23,13 @@
                 android:layout_height="wrap_content"
                 android:text="Giỏ hàng của bạn"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_cart_items"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:padding="8dp"/>
+                android:layout_height="wrap_content"
+                android:padding="8dp" />
 
             <TextView
                 android:id="@+id/tv_total_price"
@@ -42,18 +39,20 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:gravity="end"
-                android:padding="8dp"/>
+                android:padding="5dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:paddingBottom="16dp"
                 android:gravity="center">
 
                 <Button
                     android:id="@+id/btn_choose_more"
                     android:layout_width="0dp"
                     android:layout_weight="1"
+                    android:textSize="9dp"
                     android:layout_height="wrap_content"
                     android:text="Chọn thêm sản phẩm" />
 
@@ -61,18 +60,23 @@
                     android:id="@+id/btn_checkout"
                     android:layout_width="0dp"
                     android:layout_weight="1"
+                    android:textSize="10dp"
                     android:layout_height="wrap_content"
                     android:text="Thanh toán" />
             </LinearLayout>
         </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <!-- Sidebar -->
+    <!-- Danh sách sản phẩm cuộn được -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#EEEEEE"
             android:padding="12dp">
 
             <EditText
@@ -97,6 +101,8 @@
                 android:id="@+id/rv_categories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:scrollbars="horizontal"
                 android:padding="8dp" />
 
             <TextView
@@ -131,5 +137,6 @@
                 android:textSize="14sp"
                 android:paddingTop="4dp" />
         </LinearLayout>
-    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

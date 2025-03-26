@@ -51,10 +51,11 @@ public interface ProductDao {
     List<Product> getFeaturedProducts();
 
     @Transaction
-    @Query("SELECT p.product_id, p.name,p.price,p.stock, p.description, p.sale_price, pi.image_url " +
-            "FROM Products p " +
-            "LEFT JOIN Product_Images pi ON p.product_id = pi.product_id " +
-            "WHERE p.status = 'Active'")
+//    @Query("SELECT p.product_id, p.name,p.price,p.stock, p.description, p.sale_price, pi.image_url " +
+//            "FROM Products p " +
+//            "LEFT JOIN Product_Images pi ON p.product_id = pi.product_id " +
+//            "WHERE p.status = 'Active'")
+    @Query("SELECT * FROM Products WHERE status = 'Active'")
     List<ProductWithImages> getAllProductsWithImages();
 }
 

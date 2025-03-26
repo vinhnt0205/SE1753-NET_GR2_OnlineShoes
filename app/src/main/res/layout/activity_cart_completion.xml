@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".CartCompletionActivity">
+
+    <!-- Tiêu đề xác nhận đơn hàng -->
+    <TextView
+        android:id="@+id/tv_order_confirmation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Đơn hàng của bạn đã được xác nhận!"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Thông tin đơn hàng -->
+    <TextView
+        android:id="@+id/tv_order_details"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Chi tiết đơn hàng sẽ được gửi đến email của bạn."
+        android:textSize="16sp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/tv_order_confirmation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingTop="8dp" />
+
+    <!-- Hướng dẫn thanh toán -->
+    <TextView
+        android:id="@+id/tv_payment_guide"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Thông tin thanh toán sẽ hiển thị ở đây."
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@id/tv_order_details"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingTop="16dp" />
+
+    <!-- Sidebar - Chuyển xuống dưới -->
+    <LinearLayout
+        android:id="@+id/sidebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#F5F5F5"
+        android:padding="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp">
+
+        <!-- Ô tìm kiếm sản phẩm -->
+        <EditText
+            android:id="@+id/et_search_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tìm kiếm sản phẩm..."
+            android:padding="8dp"
+            android:background="@android:drawable/editbox_background" />
+
+        <!-- Danh mục sản phẩm -->
+        <TextView
+            android:id="@+id/tv_product_categories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Danh mục sản phẩm"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="16dp" />
+
+        <ListView
+            android:id="@+id/lv_categories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="1dp" />
+
+        <!-- Sản phẩm mới nhất -->
+        <TextView
+            android:id="@+id/tv_latest_products"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sản phẩm mới nhất"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="16dp" />
+
+        <ListView
+            android:id="@+id/lv_latest_products"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="1dp" />
+
+        <!-- Liên hệ / Link tĩnh -->
+        <TextView
+            android:id="@+id/tv_static_contacts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Liên hệ / Links"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="16dp" />
+
+        <TextView
+            android:id="@+id/tv_contact_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email: support@example.com\nHotline: 0123 456 789"
+            android:textSize="16sp"
+            android:paddingTop="8dp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

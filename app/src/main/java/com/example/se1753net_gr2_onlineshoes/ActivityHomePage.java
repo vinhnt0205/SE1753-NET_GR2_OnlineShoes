@@ -19,10 +19,15 @@ import com.example.se1753net_gr2_onlineshoes.data.adapter.ProductAdapter;
 import com.example.se1753net_gr2_onlineshoes.data.adapter.SliderAdapter;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.Category;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.Product;
+import com.example.se1753net_gr2_onlineshoes.data.local.entities.ProductWithImages;
+import com.example.se1753net_gr2_onlineshoes.data.local.entities.ShoppingCart;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.Slider;
+import com.example.se1753net_gr2_onlineshoes.data.session.SessionManager;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
@@ -50,12 +55,35 @@ public class ActivityHomePage extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
         cartIconView =  findViewById(R.id.cart_icon);
         cartBadge = findViewById(R.id.cart_badge);
-        cartIconView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ActivityHomePage.this, activity_cart_detail.class);
-                startActivity(intent);
+        cartIconView.setOnClickListener(v -> {
+            SessionManager sessionManager = new SessionManager(ActivityHomePage.this);
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(ActivityHomePage.this, activity_cart_detail.class);
+//                startActivity(intent);
+//            }
+String userId = sessionManager.getUserId();
+         if (userId == null) {
+                Toast.makeText(ActivityHomePage.this, "Bạn cần đăng nhập để xem giỏ hàng!", Toast.LENGTH_SHORT).show();
+                return;
             }
+            // Chạy luồng nền để lấy giỏ hàng của người dùng
+               Executors.newSingleThreadExecutor().execute(() -> {
+                ShoppingCart cart = ShoeShopDatabase.getInstance(ActivityHomePage.this)
+                        .shoppingCartDao()
+                        .getCartByUser(userId);
+                if (cart == null) {
+                    cart = new ShoppingCart(UUID.randomUUID().toString(), userId, new Date());
+                    ShoeShopDatabase.getInstance(ActivityHomePage.this)
+                            .shoppingCartDao().insertCart(cart);
+                }
+                // Chuyển sang activity_cart_detail với thông tin cartId và userId
+                Intent intent = new Intent(ActivityHomePage.this, activity_cart_detail.class);
+                intent.putExtra("cartId", cart.cartId);
+                intent.putExtra("userId", userId);
+                runOnUiThread(() -> startActivity(intent));
+            });
+
         });
          sliderViewPager = findViewById(R.id.sliderView);
         categoryRecyclerView = findViewById(R.id.recyclerViewCategory);
@@ -123,7 +151,7 @@ public class ActivityHomePage extends AppCompatActivity {
                 }
 
                 // Cài đặt adapter sau khi có dữ liệu
-           LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+               LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
                 categoryRecyclerView.setLayoutManager(layoutManager);
 
                 CategoryAdapter categoryAdapter = new CategoryAdapter(this, categoryList, categoryId -> {
@@ -139,24 +167,47 @@ public class ActivityHomePage extends AppCompatActivity {
         }
     }
 
-    private void setupProductList() {
+//    private void setupProductList() {
+//        try {
+//            getActiveProducts(productList -> {
+//                Log.d(TAG, "setupProductList: productList size = " + productList.size());
+//
+//                if (productList == null || productList.isEmpty()) {
+//                    return;
+//                }
+//
+//                // Cài đặt adapter sau khi có dữ liệu
+//                ProductAdapter adapter = new ProductAdapter(this, productList);
+//                productRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+//                productRecyclerView.setAdapter(adapter);
+//            });
+//        } catch (Exception e) {
+//            Log.e(TAG, "setupProductList: Error setting up products", e);
+//        }
+//    }
+private void setupProductList() {
+    Executors.newSingleThreadExecutor().execute(() -> {
         try {
-            getActiveProducts(productList -> {
-                Log.d(TAG, "setupProductList: productList size = " + productList.size());
+            // Lấy danh sách sản phẩm ở background thread
+            List<ProductWithImages> productWithImagesList = ShoeShopDatabase.getInstance(this)
+                    .productDao().getAllProductsWithImages();
+            Log.d(TAG, "setupProductList: productWithImagesList size = " + productWithImagesList.size());
 
-                if (productList == null || productList.isEmpty()) {
-                    return;
-                }
+            if (productWithImagesList == null || productWithImagesList.isEmpty()) {
+                return;
+            }
 
-                // Cài đặt adapter sau khi có dữ liệu
-                ProductAdapter adapter = new ProductAdapter(this, productList);
+            // Chuyển sang UI thread để cập nhật RecyclerView
+            runOnUiThread(() -> {
+                ProductAdapter adapter = new ProductAdapter(this, productWithImagesList);
                 productRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
                 productRecyclerView.setAdapter(adapter);
             });
         } catch (Exception e) {
             Log.e(TAG, "setupProductList: Error setting up products", e);
         }
-    }
+    });
+}
 
 //    private void setupSidebar() {
 //        List<Post> latestPosts = getLatestPosts();
@@ -165,21 +216,21 @@ public class ActivityHomePage extends AppCompatActivity {
 //        latestPostsRecyclerView.setAdapter(postAdapter);
 //    }
 
-    private void filterProductsByCategory(String categoryId) {
-        try {
-            List<Product> filteredProducts = new ArrayList<>();
-            for (Product product : productList) {
-                if (product.brandId != null && product.brandId.equals(categoryId)) {
-                    filteredProducts.add(product);
-                }
-            }
-            Log.d(TAG, "filterProductsByCategory: filteredProducts size = " + filteredProducts.size());
-            ProductAdapter adapter = new ProductAdapter(this, filteredProducts);
-            productRecyclerView.setAdapter(adapter);
-        } catch (Exception e) {
-            Log.e(TAG, "filterProductsByCategory: Error filtering products", e);
-        }
-    }
+//    private void filterProductsByCategory(String categoryId) {
+//        try {
+//            List<Product> filteredProducts = new ArrayList<>();
+//            for (Product product : productList) {
+//                if (product.brandId != null && product.brandId.equals(categoryId)) {
+//                    filteredProducts.add(product);
+//                }
+//            }
+//            Log.d(TAG, "filterProductsByCategory: filteredProducts size = " + filteredProducts.size());
+//            ProductAdapter adapter = new ProductAdapter(this, filteredProducts);
+//            productRecyclerView.setAdapter(adapter);
+//        } catch (Exception e) {
+//            Log.e(TAG, "filterProductsByCategory: Error filtering products", e);
+//        }
+//    }
 
 
 

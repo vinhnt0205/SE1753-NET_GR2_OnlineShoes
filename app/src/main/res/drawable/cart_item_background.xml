@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Background for entire cart item -->
+    <drawable name="cart_item_background">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <solid android:color="@android:color/white"/>
+            <corners android:radius="8dp"/>
+        </shape>
+    </drawable>
+
+    <!-- Background for quantity section -->
+    <drawable name="quantity_background">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <solid android:color="#F0F0F0"/>
+            <corners android:radius="4dp"/>
+        </shape>
+    </drawable>
+
+    <!-- Background for + and - buttons -->
+    <drawable name="quantity_button_background">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <solid android:color="#4CAF50"/>
+            <corners android:radius="4dp"/>
+        </shape>
+    </drawable>
+
+    <!-- Background for delete button -->
+    <drawable name="delete_button_background">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <solid android:color="#F44336"/>
+            <corners android:radius="4dp"/>
+        </shape>
+    </drawable>
+</resources>
