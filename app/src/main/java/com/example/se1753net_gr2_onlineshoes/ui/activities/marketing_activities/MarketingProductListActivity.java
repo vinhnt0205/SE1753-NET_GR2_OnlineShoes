@@ -1,6 +1,5 @@
 package com.example.se1753net_gr2_onlineshoes.ui.activities.marketing_activities;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -35,7 +34,7 @@ public class MarketingProductListActivity extends AppCompatActivity {
             return insets;
         });
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbarProductList);
         setSupportActionBar(toolbar); // Important! This enables the ActionBar
 
         // Enable back button

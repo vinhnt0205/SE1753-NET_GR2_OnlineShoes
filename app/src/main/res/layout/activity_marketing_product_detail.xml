@@ -1,84 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
     tools:context=".ui.activities.marketing_activities.MarketingProductDetailActivity">
 
-    <!-- Toolbar -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <!-- Material 3 Toolbar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbarProductList"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimaryContainer"
         app:title="Product Details"
-        app:titleTextColor="@android:color/white"
+        app:titleTextColor="?attr/colorOnPrimaryContainer"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Widget.Material3.Toolbar"/>
 
-    <!-- Product Image -->
-    <ImageView
-        android:id="@+id/imageViewProduct"
+    <!-- Product Image with Material Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardImageViewProduct"
         android:layout_width="0dp"
         android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:contentDescription="Product Image"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:cardCornerRadius="8dp"
+        app:strokeColor="?attr/colorOutline"
+        app:layout_constraintTop_toBottomOf="@id/toolbarProductList"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>  <!-- Corrected -->
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="16dp">
+
+        <ImageView
+            android:id="@+id/imageViewProduct"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="Product Image"/>
+
+    </com.google.android.material.card.MaterialCardView>
 
     <!-- Product Name -->
-    <EditText
-        android:id="@+id/editTextProductName"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutProductName"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Product Name"
-        android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@id/imageViewProduct"
+        app:layout_constraintTop_toBottomOf="@+id/cardImageViewProduct"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>  <!-- Corrected -->
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextProductName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Product Description -->
-    <EditText
-        android:id="@+id/editTextProductDescription"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutProductDescription"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Description"
-        android:inputType="textMultiLine"
-        android:minLines="3"
-        app:layout_constraintTop_toBottomOf="@id/editTextProductName"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayoutProductName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>  <!-- Corrected -->
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextProductDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:minLines="3"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Product Price -->
-    <EditText
-        android:id="@+id/editTextProductPrice"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutProductPrice"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Price"
-        android:inputType="numberDecimal"
-        app:layout_constraintTop_toBottomOf="@id/editTextProductDescription"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayoutProductDescription"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>  <!-- Corrected -->
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextProductPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Save Button -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonSaveProduct"
-        android:layout_width="wrap_content"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Save"
-        app:layout_constraintTop_toBottomOf="@id/editTextProductPrice"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayoutProductPrice"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>  <!-- Corrected -->
+        android:layout_marginTop="24dp"
+        android:layout_marginHorizontal="16dp"
+        app:cornerRadius="8dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
