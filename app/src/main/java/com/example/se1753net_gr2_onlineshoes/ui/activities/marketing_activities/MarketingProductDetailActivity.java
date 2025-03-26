@@ -40,7 +40,7 @@ public class MarketingProductDetailActivity extends AppCompatActivity {
         });
 
         // Initialize UI elements
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbarProductList);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
