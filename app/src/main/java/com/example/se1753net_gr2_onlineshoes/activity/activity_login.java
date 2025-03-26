@@ -49,6 +49,23 @@ public class activity_login extends AppCompatActivity {
                 Toast.makeText(activity_login.this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
                 return;
             }
+            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                etEmail.setError("Email không hợp lệ!");
+                etEmail.requestFocus();
+                return;
+            }
+
+            // 🔹 Kiểm tra mật khẩu
+            if (password.isEmpty()) {
+                etPassword.setError("Vui lòng nhập mật khẩu!");
+                etPassword.requestFocus();
+                return;
+            }
+            if (password.length() < 6) {
+                etPassword.setError("Mật khẩu phải có ít nhất 6 ký tự!");
+                etPassword.requestFocus();
+                return;
+            }
 
             new Thread(() -> {
                 User user = userDao.getUserByEmail(email);
