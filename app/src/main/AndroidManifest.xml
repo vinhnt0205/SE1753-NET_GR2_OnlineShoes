@@ -62,6 +62,9 @@
                     android:scheme="se1753net_gr2_onlineshoes" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activities.sale_activities.OrderListActivity" />
+        <activity android:name=".ui.activities.sale_activities.OrderDetailsActivity" />
+
         <activity
             android:name=".activity.activity_forgot_password"
             android:exported="false" />

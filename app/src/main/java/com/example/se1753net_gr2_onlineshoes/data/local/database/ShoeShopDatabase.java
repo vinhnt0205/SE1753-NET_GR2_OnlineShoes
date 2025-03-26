@@ -22,7 +22,7 @@ import com.example.se1753net_gr2_onlineshoes.data.local.utils.DateConverter;
                 ProductStatistics.class, AdminSettings.class, CustomerActivitySummary.class
         },
         views = {ProductStatisticsView.class},
-        version = 3, // Keeping the higher version
+        version = 4, // Keeping the higher version
         exportSchema = false
 )
 @TypeConverters(DateConverter.class)
