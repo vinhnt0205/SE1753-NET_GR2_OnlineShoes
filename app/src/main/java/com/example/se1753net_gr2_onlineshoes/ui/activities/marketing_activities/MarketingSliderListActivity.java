@@ -31,8 +31,12 @@ import com.google.android.material.carousel.CarouselStrategy;
 import com.google.android.material.carousel.HeroCarouselStrategy;
 import com.google.android.material.search.SearchBar;
 
-public class MarketingSliderListActivity extends AppCompatActivity {
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
+public class MarketingSliderListActivity extends AppCompatActivity {
+    private static final int REQUEST_CODE_UPDATE_SLIDER = 100;
     private RecyclerView carouselRecyclerView;
     MaterialToolbar toolbar;
 
@@ -40,10 +44,12 @@ public class MarketingSliderListActivity extends AppCompatActivity {
 
     TextView titleTextView , statusTextView, createdAtTextView, updatedAtTextView, filterTypeTextView;
 
-    private MaterialButton btnFilterInactiveSlider, btnFilterActiveSlider;
+    private MaterialButton btnFilterInactiveSlider, btnFilterActiveSlider, btnSliderEdit;
 
     MaterialButtonToggleGroup toggleButtonGroup;
     private SearchBar searchBar;
+
+    Slider focusedSlider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +68,7 @@ public class MarketingSliderListActivity extends AppCompatActivity {
         btnFilterInactiveSlider = findViewById(R.id.btnFilterInactiveSlider);
         btnFilterActiveSlider = findViewById(R.id.btnFilterActiveSlider);
         toggleButtonGroup = findViewById(R.id.toggleButtonGroup);
+        btnSliderEdit = findViewById(R.id.btnSliderEdit);
         //searchBar = findViewById(R.id.searchBar);
         setSupportActionBar(toolbar);
 
@@ -114,7 +121,7 @@ public class MarketingSliderListActivity extends AppCompatActivity {
                         int centerPosition = recyclerView.getChildAdapterPosition(centerView);
 
                         if (centerPosition != RecyclerView.NO_POSITION && centerPosition < adapter.getItemCount()) {
-                            Slider focusedSlider = adapter.getSliderAt(centerPosition);
+                            focusedSlider = adapter.getSliderAt(centerPosition);
 
                             // Update UI with focused slider info
                             updateFocusedSliderInfo(focusedSlider);
@@ -142,8 +149,27 @@ public class MarketingSliderListActivity extends AppCompatActivity {
             }
         });
 
+        btnSliderEdit.setOnClickListener(v -> {
+            /*Intent intent = new Intent(MarketingSliderListActivity.this, MarketingSliderDetailActivity.class);
+            intent.putExtra("SLIDER_ID", focusedSlider.sliderId); // Assuming 'id' is the unique identifier
+            startActivity(intent);*/
 
+            Intent intent = new Intent(this, MarketingSliderDetailActivity.class);
+            intent.putExtra("SLIDER_ID", focusedSlider.sliderId);
+            startActivityForResult(intent, REQUEST_CODE_UPDATE_SLIDER);
+        });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_UPDATE_SLIDER && resultCode == RESULT_OK) {
+            // Refresh the slider list
+            marketingSliderListViewModel.loadSliders(); // Assuming you have this method
+        }
+    }
+
 
     // Method to update UI with focused slider info
     private void updateFocusedSliderInfo(Slider slider) {
@@ -155,7 +181,13 @@ public class MarketingSliderListActivity extends AppCompatActivity {
 
         titleTextView.setText(slider.title);
         statusTextView.setText("Status: " + slider.status);
-        createdAtTextView.setText("Created At: " + slider.createdAt.toString());
-        updatedAtTextView.setText("Updated At: " + slider.updatedAt.toString());
+        createdAtTextView.setText("Created At: " + formatDate(slider.createdAt));
+        updatedAtTextView.setText("Updated At: " + formatDate(slider.updatedAt));
+    }
+
+    private String formatDate(Date date) {
+        if (date == null) return "N/A"; // Handle null values
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        return sdf.format(date);
     }
 }

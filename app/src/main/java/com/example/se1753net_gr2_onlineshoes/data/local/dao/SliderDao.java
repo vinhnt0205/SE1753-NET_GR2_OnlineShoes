@@ -29,7 +29,7 @@ public interface SliderDao {
     @Query("SELECT * FROM Sliders WHERE status = 'Active'")
     List<Slider> getActiveSliders();
 
-    @Query("SELECT * FROM Sliders WHERE slider_id = :sliderId")
+    @Query("SELECT * FROM Sliders WHERE slider_id = :sliderId LIMIT 1")
     Single<Slider> getSliderById(String sliderId);
 
     @Query("SELECT * FROM Sliders")

@@ -44,13 +44,17 @@ public class MarketingSliderListViewModel extends ViewModel {
         loadSliders(); // Reload with search
     }
 
-    private void loadSliders() {
+    public void loadSliders() {
         disposable.add(repository.getAllSliders()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         sliders -> {
                             sliderListLiveData.setValue(filterSliders(sliders)); // Apply filtering
+                            for(Slider slider : sliders) {
+                                Log.d("DB_CHECK", "Created At: " + slider.createdAt);
+                                Log.d("DB_CHECK", "Updated At: " + slider.updatedAt);
+                            }
                         },
                         throwable -> Log.e("MarketingSliderListVM", "Error fetching sliders", throwable)
                 ));
