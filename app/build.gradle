@@ -36,6 +36,7 @@ dependencies {
     implementation libs.navigation.fragment
     implementation libs.navigation.ui
     String room_version = "2.6.1"
+    def paging_version = "3.3.6"
 
     implementation libs.appcompat
     implementation libs.material
@@ -57,6 +58,10 @@ dependencies {
     implementation 'com.google.android.material:material:1.13.0-alpha12'
     implementation 'androidx.recyclerview:recyclerview:1.4.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.15.1'
+
+    implementation "androidx.paging:paging-runtime:$paging_version"
+
+
     //implementation(libs.vico.views)       // For Android View system
     //implementation(libs.vico.compose.m3)  // For Material 3 theming
 

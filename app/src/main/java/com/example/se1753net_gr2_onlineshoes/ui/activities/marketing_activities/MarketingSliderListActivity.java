@@ -3,26 +3,39 @@ package com.example.se1753net_gr2_onlineshoes.ui.activities.marketing_activities
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.se1753net_gr2_onlineshoes.R;
+import com.example.se1753net_gr2_onlineshoes.data.local.entities.Slider;
+import com.example.se1753net_gr2_onlineshoes.data.repository.SliderRepository;
 import com.example.se1753net_gr2_onlineshoes.ui.adapter.marketing_adapter.MarketingSliderListAdapter;
+import com.example.se1753net_gr2_onlineshoes.viewmodel.factory.MarketingSliderListViewModelFactory;
+import com.example.se1753net_gr2_onlineshoes.viewmodel.marketing_viewmodel.MarketingSliderListViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.google.android.material.carousel.CarouselLayoutManager;
+import com.google.android.material.carousel.CarouselStrategy;
+import com.google.android.material.carousel.HeroCarouselStrategy;
 
 public class MarketingSliderListActivity extends AppCompatActivity {
 
     private RecyclerView carouselRecyclerView;
     MaterialToolbar toolbar;
+
+    private MarketingSliderListViewModel marketingSliderListViewModel;
+
+    TextView titleTextView , statusTextView, createdAtTextView, updatedAtTextView, filterTypeTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +51,16 @@ public class MarketingSliderListActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbarSliderList);
         setSupportActionBar(toolbar);
 
-        List<String> imageList = new ArrayList<>();
-        imageList.add("https://plus.unsplash.com/premium_photo-1742353866584-27c87d42da99?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-        imageList.add("https://plus.unsplash.com/premium_photo-1741194732698-e3b5609edebb?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxN3x8fGVufDB8fHx8fA%3D%3D");
-        imageList.add("https://images.unsplash.com/photo-1742730709723-5dbb59ada518?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-        imageList.add("https://plus.unsplash.com/premium_photo-1694557637761-4bf2467c261b?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-        imageList.add("https://images.unsplash.com/photo-1742218410181-9304b5548653?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzNnx8fGVufDB8fHx8fA%3D%3D");
+        // 1. Create HeroCarouselStrategy
+        CarouselStrategy heroCarouselStrategy = new HeroCarouselStrategy();
+
+        // 2. Create CarouselLayoutManager with the strategy
+        CarouselLayoutManager carouselLayoutManager = new CarouselLayoutManager(heroCarouselStrategy);
+
+        // 3. Set the LayoutManager
+        carouselRecyclerView.setLayoutManager(carouselLayoutManager);
 
         MarketingSliderListAdapter adapter = new MarketingSliderListAdapter();
-        adapter.setImageList(imageList);
         adapter.setOnItemClickListener(new MarketingSliderListAdapter.OnItemClickListener() {
             @Override
             public void onClick(ImageView imageView, String url) {
@@ -62,5 +76,52 @@ public class MarketingSliderListActivity extends AppCompatActivity {
         });
         carouselRecyclerView.setAdapter(adapter);
 
+        // Get an instance of the repository
+        SliderRepository repository = new SliderRepository(getApplication());
+
+        // Create ViewModel using the Factory
+        MarketingSliderListViewModelFactory factory = new MarketingSliderListViewModelFactory(repository);
+        marketingSliderListViewModel = new ViewModelProvider(this, factory).get(MarketingSliderListViewModel.class);
+
+        // Observe data changes
+        marketingSliderListViewModel.getsliderlistlivedata().observe(this, adapter::setSliderList);
+
+        LinearSnapHelper snapHelper = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(carouselRecyclerView);
+
+        carouselRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) { // Only detect when scrolling stops
+                    View centerView = snapHelper.findSnapView(recyclerView.getLayoutManager());
+                    if (centerView != null) {
+                        int centerPosition = recyclerView.getChildAdapterPosition(centerView);
+
+                        if (centerPosition != RecyclerView.NO_POSITION && centerPosition < adapter.getItemCount()) {
+                            Slider focusedSlider = adapter.getSliderAt(centerPosition);
+
+                            // Update UI with focused slider info
+                            updateFocusedSliderInfo(focusedSlider);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Method to update UI with focused slider info
+    private void updateFocusedSliderInfo(Slider slider) {
+        titleTextView = findViewById(R.id.tvSliderTitle);
+        statusTextView = findViewById(R.id.tvSliderStatus);
+        createdAtTextView = findViewById(R.id.tvSliderCreatedAt);
+        updatedAtTextView = findViewById(R.id.tvSliderUpdateAt);
+        filterTypeTextView = findViewById(R.id.tvSliderFilterType);
+
+        titleTextView.setText(slider.title);
+        statusTextView.setText("Status: " + slider.status);
+        createdAtTextView.setText("Created At: " + slider.createdAt.toString());
+        updatedAtTextView.setText("Updated At: " + slider.updatedAt.toString());
     }
 }
