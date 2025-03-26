@@ -10,32 +10,32 @@ import com.example.se1753net_gr2_onlineshoes.data.local.utils.DateConverter;
 
 import java.util.Date;
 
-@Entity(tableName = "Sliders")
-@TypeConverters(DateConverter.class) // Apply TypeConverter
-public class Slider {
-    @PrimaryKey
-    @NonNull
-    @ColumnInfo(name = "slider_id")
-    public String sliderId;
+    @Entity(tableName = "Sliders")
+    @TypeConverters(DateConverter.class) // Apply TypeConverter
+    public class Slider {
+        @PrimaryKey
+        @NonNull
+        @ColumnInfo(name = "slider_id")
+        public String sliderId;
 
-    @ColumnInfo(name = "title")
-    public String title;
+        @ColumnInfo(name = "title")
+        public String title;
 
-    @ColumnInfo(name = "image_url")
-    public String imageUrl;
+        @ColumnInfo(name = "image_url")
+        public String imageUrl;
 
-    @ColumnInfo(name = "backlink")
-    public String backlink;
+        @ColumnInfo(name = "backlink")
+        public String backlink;
 
-    @ColumnInfo(name = "status")
-    public String status; // ENUM('Active', 'Inactive')
+        @ColumnInfo(name = "status")
+        public String status; // ENUM('Active', 'Inactive')
 
-    @ColumnInfo(name = "notes")
-    public String notes;
+        @ColumnInfo(name = "notes")
+        public String notes;
 
-    @ColumnInfo(name = "created_at")
-    public Date createdAt;
+        @ColumnInfo(name = "created_at")
+        public Date createdAt;
 
-    @ColumnInfo(name = "updated_at")
-    public Date updatedAt;
-}
+        @ColumnInfo(name = "updated_at")
+        public Date updatedAt;
+    }

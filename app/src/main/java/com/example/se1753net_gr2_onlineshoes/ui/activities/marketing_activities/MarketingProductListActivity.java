@@ -58,7 +58,7 @@ public class MarketingProductListActivity extends AppCompatActivity {
 
         // Observe data changes
         marketingProductListViewModel.getProducts().observe(this, adapter::setProducts);
-            marketingProductListViewModel.getProductFirstImagesLiveData().observe(this, adapter::setProductImages);
+        marketingProductListViewModel.getProductFirstImagesLiveData().observe(this, adapter::setProductImages);
     }
 
     @Override

@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Se1753net_gr2_onlineshoes"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activities.marketing_activities.MarketingSliderDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.marketing_activities.MarketingSliderImageViewActivity"
             android:exported="false" />
         <activity
@@ -64,7 +67,6 @@
         </activity>
         <activity android:name=".ui.activities.sale_activities.OrderListActivity" />
         <activity android:name=".ui.activities.sale_activities.OrderDetailsActivity" />
-
         <activity
             android:name=".activity.activity_forgot_password"
             android:exported="false" />

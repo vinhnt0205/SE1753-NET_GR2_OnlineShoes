@@ -1,15 +1,12 @@
 package com.example.se1753net_gr2_onlineshoes.ui.adapter.marketing_adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,15 +18,14 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.se1753net_gr2_onlineshoes.R;
-import com.example.se1753net_gr2_onlineshoes.data.local.entities.Product;
-import com.example.se1753net_gr2_onlineshoes.data.local.entities.ProductImage;
-import com.example.se1753net_gr2_onlineshoes.ui.activities.marketing_activities.MarketingProductDetailActivity;
+import com.example.se1753net_gr2_onlineshoes.data.local.entities.Slider;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MarketingSliderListAdapter extends RecyclerView.Adapter<MarketingSliderListAdapter.SliderViewHolder> {
     Context context;
-    List<String> imageList;
+    List<Slider> sliderList = new ArrayList<>();
     OnItemClickListener onItemClickListener;
 
 
@@ -44,8 +40,8 @@ public class MarketingSliderListAdapter extends RecyclerView.Adapter<MarketingSl
 
     @Override
     public void onBindViewHolder(@NonNull SliderViewHolder holder, int position) {
-        if (imageList != null && !imageList.isEmpty()) {
-            String imageUrl = imageList.get(position); // Store item reference
+        if (sliderList != null && !sliderList.isEmpty()) {
+            String imageUrl = sliderList.get(position).imageUrl; // Store item reference
 
             Glide.with(context)
                     .load(imageUrl)
@@ -72,10 +68,9 @@ public class MarketingSliderListAdapter extends RecyclerView.Adapter<MarketingSl
     }
 
 
-
     @Override
     public int getItemCount() {
-        return imageList.size();
+        return sliderList.size();
     }
 
     static class SliderViewHolder extends RecyclerView.ViewHolder {
@@ -91,8 +86,15 @@ public class MarketingSliderListAdapter extends RecyclerView.Adapter<MarketingSl
         this.onItemClickListener = onItemClickListener;
     }
 
-    public void setImageList(List<String> imageList) {
-        this.imageList = imageList;
+    public Slider getSliderAt(int position) {
+        return sliderList.get(position);
+    }
+
+    public void setSliderList(List<Slider> sliders) {
+        if (sliders != null) {
+            this.sliderList = sliders;
+            notifyDataSetChanged();
+        }
     }
 
     public interface  OnItemClickListener {
