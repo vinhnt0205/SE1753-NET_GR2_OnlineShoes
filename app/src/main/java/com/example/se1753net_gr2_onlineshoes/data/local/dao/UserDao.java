@@ -13,14 +13,15 @@ import java.util.List;
 
 @Dao
 public interface UserDao {
+
     @Insert
     void insertUser(User user);
-
     @Update
     void updateUser(User user);
-
     @Delete
     void deleteUser(User user);
+    @Query("DELETE FROM Users WHERE user_id = :userId")
+    void deleteUserById(String userId);
 
     @Query("SELECT * FROM Users WHERE user_id = :userId")
     User getUserById(String userId);
@@ -37,7 +38,5 @@ public interface UserDao {
     int checkEmailExists(String email);
     @Query("UPDATE Users SET password_hash = :newPassword, updated_at = :updatedAt WHERE user_id = :userId")
     void updatePassword(String userId, String newPassword, Date updatedAt);
-
-
 }
 

@@ -15,6 +15,20 @@
         android:theme="@style/Theme.Se1753net_gr2_onlineshoes"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activities.admin_activities.AdminAddUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.admin_activities.AdminUserDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.admin_activities.AdminUserListActivity"
+            android:exported="true">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
+        <activity
             android:name=".ui.activities.marketing_activities.MarketingSliderDetailActivity"
             android:exported="false" />
         <activity
@@ -76,8 +90,10 @@
         <activity
             android:name=".activity.activity_login"
             android:exported="true" /> <!-- Sales Activities -->
+            android:exported="true" /> <!-- Sales Activities -->
         <activity
             android:name=".ui.activities.sale_activities.SaleDashboardActivity"
+            android:exported="true" />
             android:exported="true" />
     </application>
 
