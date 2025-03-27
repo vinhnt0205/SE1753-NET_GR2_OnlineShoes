@@ -55,7 +55,7 @@ public abstract class ShoeShopDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     ShoeShopDatabase.class, "shoeShopDB")
-                            .createFromAsset("databases/shoeShop.db")
+                            //.createFromAsset("databases/shoeShop.db")
                             .addMigrations(MIGRATION_1_2, MIGRATION_2_3) // Ensure migrations are included
                             .fallbackToDestructiveMigration()
                             .build();

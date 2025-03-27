@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.se1753net_gr2_onlineshoes.R;
 import com.example.se1753net_gr2_onlineshoes.activity.activity_login;
+import com.example.se1753net_gr2_onlineshoes.ui.activities.admin_activities.AdminUserListActivity;
 import com.example.se1753net_gr2_onlineshoes.ui.activities.sale_activities.OrderListActivity;
 import com.example.se1753net_gr2_onlineshoes.ui.activities.sale_activities.SaleDashboardActivity;
 
@@ -23,6 +24,7 @@ public class MarketingDashboardActivity extends AppCompatActivity {
     private CardView salesCardView;
     private CardView sliderCardView;
     private CardView orderListCardView;
+    private CardView adminCardView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class MarketingDashboardActivity extends AppCompatActivity {
         salesCardView = findViewById(R.id.salesCardView);
         sliderCardView = findViewById(R.id.sliderCardView);
         orderListCardView = findViewById(R.id.buttonToOrderListActivity);
+        adminCardView = findViewById(R.id.adminCardView);
 
         productsCardView.setOnClickListener(v -> {
             Intent intent = new Intent(MarketingDashboardActivity.this, MarketingProductListActivity.class);
@@ -69,6 +72,11 @@ public class MarketingDashboardActivity extends AppCompatActivity {
 
         orderListCardView.setOnClickListener(v -> {
             Intent intent = new Intent(MarketingDashboardActivity.this, OrderListActivity.class);
+            startActivity(intent);
+        });
+
+        adminCardView.setOnClickListener(v -> {
+            Intent intent = new Intent(MarketingDashboardActivity.this, AdminUserListActivity.class);
             startActivity(intent);
         });
     }

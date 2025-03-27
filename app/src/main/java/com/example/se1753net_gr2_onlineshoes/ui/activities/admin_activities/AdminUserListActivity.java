@@ -41,10 +41,9 @@ public class AdminUserListActivity extends AppCompatActivity {
             return insets;
         });
 
-        //toolBar();
-
-        initRecyclerView();
+        toolBar();
         userDao = ShoeShopDatabase.getInstance(this).userDao();
+        initRecyclerView();
 
         new Thread(()-> {
             userList = userDao.getAllUsers();
