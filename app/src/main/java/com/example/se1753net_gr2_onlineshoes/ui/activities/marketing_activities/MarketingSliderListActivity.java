@@ -42,7 +42,7 @@ public class MarketingSliderListActivity extends AppCompatActivity {
 
     private MarketingSliderListViewModel marketingSliderListViewModel;
 
-    TextView titleTextView , statusTextView, createdAtTextView, updatedAtTextView, filterTypeTextView;
+    TextView titleTextView , statusTextView, createdAtTextView, updatedAtTextView, filterTypeTextView, sliderNoteTextView;
 
     private MaterialButton btnFilterInactiveSlider, btnFilterActiveSlider, btnSliderEdit;
 
@@ -178,11 +178,13 @@ public class MarketingSliderListActivity extends AppCompatActivity {
         createdAtTextView = findViewById(R.id.tvSliderCreatedAt);
         updatedAtTextView = findViewById(R.id.tvSliderUpdateAt);
         filterTypeTextView = findViewById(R.id.tvSliderFilterType);
+        sliderNoteTextView =  findViewById(R.id.tvSliderNote);
 
         titleTextView.setText(slider.title);
         statusTextView.setText("Status: " + slider.status);
         createdAtTextView.setText("Created At: " + formatDate(slider.createdAt));
         updatedAtTextView.setText("Updated At: " + formatDate(slider.updatedAt));
+        sliderNoteTextView.setText(slider.notes);
     }
 
     private String formatDate(Date date) {

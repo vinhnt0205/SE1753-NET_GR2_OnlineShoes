@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,15 +21,17 @@ import com.example.se1753net_gr2_onlineshoes.data.local.entities.ProductImage;
 import com.example.se1753net_gr2_onlineshoes.ui.activities.marketing_activities.MarketingProductDetailActivity;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-public class MarketingProductListAdapter extends RecyclerView.Adapter<MarketingProductListAdapter.ProductViewHolder> {
+public class MarketingProductListAdapter extends RecyclerView.Adapter<MarketingProductListAdapter.ProductViewHolder> implements Filterable {
     private List<Product> productList = new ArrayList<>();
+    private List<Product> productListAll = new ArrayList<>();
     private List<ProductImage> productImages = new ArrayList<>(); // Store images
 
 
-    public MarketingProductListAdapter() {
-
+    public MarketingProductListAdapter(List<Product> productListAll) {
+        this.productListAll = productListAll;
     }
 
     public void setProductImages(List<ProductImage> images) {
@@ -87,6 +91,40 @@ public class MarketingProductListAdapter extends RecyclerView.Adapter<MarketingP
     public int getItemCount() {
         return productList.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Product> filterdList = new ArrayList<>();
+
+            if(constraint.toString().isEmpty()) {
+                filterdList.addAll(productListAll);
+            }else {
+                for(Product product: productListAll) {
+                    if(product.name.toLowerCase().contains(constraint.toString().toLowerCase())) {
+                        filterdList.add(product);
+                    }
+                }
+            }
+
+            FilterResults filterResults = new FilterResults();
+            filterResults.values = filterdList;
+
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            productList.clear();
+            productList.addAll((Collection<? extends Product>) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
     static class ProductViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView, descTextView, dateTextView;
