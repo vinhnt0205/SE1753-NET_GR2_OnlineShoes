@@ -1,104 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="@drawable/background_gradient">
+    android:background="@drawable/background_gradient"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Thông tin đơn hàng -->
-        <TextView
+        <!-- Order Details Section -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Order Details"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:layout_marginBottom="10dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="@android:color/white">
 
-        <TextView
-            android:id="@+id/txtOrderId"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Order Details"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:paddingBottom="8dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>
+
+                <TextView android:id="@+id/txtOrderId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Order ID: "/>
+
+                <TextView android:id="@+id/txtCustomerInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Customer: "/>
+
+                <TextView android:id="@+id/txtEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Email: "/>
+
+                <TextView android:id="@+id/txtMobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mobile: "/>
+
+                <TextView android:id="@+id/txtTotalCost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Total Cost: "/>
+
+                <TextView android:id="@+id/txtSaleName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sale Name: "/>
+
+                <TextView android:id="@+id/txtStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Status: "/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Receiver Information Section -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Order ID: "/>
+            android:layout_marginBottom="10dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="@android:color/white">
 
-        <TextView
-            android:id="@+id/txtCustomerInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Customer: "/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
 
-        <TextView
-            android:id="@+id/txtEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Email: "/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Receiver Information"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:paddingBottom="8dp"/>
 
-        <TextView
-            android:id="@+id/txtMobile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Mobile: "/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>
 
-        <TextView
-            android:id="@+id/txtTotalCost"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Total Cost: "/>
+                <TextView android:id="@+id/txtReceiverName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Full Name: "/>
 
-        <TextView
-            android:id="@+id/txtSaleName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Sale Name: "/>
+                <TextView android:id="@+id/txtReceiverGender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Gender: "/>
 
-        <TextView
-            android:id="@+id/txtStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Status: "/>
+                <TextView android:id="@+id/txtReceiverEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Email: "/>
 
-        <!-- Thông tin người nhận -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Receiver Information"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:paddingTop="10dp"/>
+                <TextView android:id="@+id/txtReceiverMobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mobile: "/>
 
-        <TextView
-            android:id="@+id/txtReceiverName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Full Name: "/>
+                <TextView android:id="@+id/txtReceiverAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Address: "/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/txtReceiverGender"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Gender: "/>
-
-        <TextView
-            android:id="@+id/txtReceiverEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Email: "/>
-
-        <TextView
-            android:id="@+id/txtReceiverMobile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Mobile: "/>
-
-        <TextView
-            android:id="@+id/txtReceiverAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Address: "/>
-
-        <!-- Danh sách sản phẩm -->
+        <!-- Ordered Products List -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -110,26 +144,30 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewProducts"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:clipToPadding="false"/>
 
-        <!-- Điều chỉnh trạng thái đơn hàng -->
+        <!-- Order Status Update -->
         <Spinner
             android:id="@+id/spinnerOrderStatus"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"/>
 
         <Button
             android:id="@+id/btnUpdateStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Update Status"
-            android:paddingTop="10dp"/>
+            android:layout_marginTop="10dp"/>
 
         <Button
             android:id="@+id/btnComplete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Complete Order"
-            android:paddingTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:text="Complete Order" />
+
     </LinearLayout>
 </ScrollView>

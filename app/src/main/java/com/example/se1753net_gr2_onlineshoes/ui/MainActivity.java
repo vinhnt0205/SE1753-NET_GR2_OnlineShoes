@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -15,6 +16,7 @@ import com.example.se1753net_gr2_onlineshoes.R;
 import com.example.se1753net_gr2_onlineshoes.ui.activities.marketing_activities.MarketingAnalyticActivity;
 import com.example.se1753net_gr2_onlineshoes.ui.activities.marketing_activities.MarketingDashboardActivity;
 import com.example.se1753net_gr2_onlineshoes.ui.activities.marketing_activities.MarketingProductListActivity;
+import com.example.se1753net_gr2_onlineshoes.ui.activities.sale_activities.CustomerListActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
 
 }

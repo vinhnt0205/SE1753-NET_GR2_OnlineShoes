@@ -57,7 +57,10 @@ public class OrderListActivity extends AppCompatActivity {
         searchBox.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                loadOrders(s.toString(), statusSpinner.getSelectedItem().toString(), null, null);
+                String keyword = (s != null) ? s.toString() : "";
+                String status = (statusSpinner.getSelectedItem() != null) ? statusSpinner.getSelectedItem().toString() : "All";
+
+                loadOrders(keyword, status, null, null);
             }
 
             @Override
@@ -67,11 +70,6 @@ public class OrderListActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
         });
 
-        btnFilter.setOnClickListener(v -> {
-            Date from = parseDate(fromDate);
-            Date to = parseDate(toDate);
-            loadOrders(searchBox.getText().toString(), statusSpinner.getSelectedItem().toString(), from, to);
-        });
     }
 
     private Date parseDate(DatePicker datePicker) {

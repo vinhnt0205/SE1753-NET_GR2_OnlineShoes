@@ -55,4 +55,18 @@ public class User {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
+    public String getUsername() { return username; }
+    public String getEmail() { return email; }
+
+    public String getMobile() {
+        return phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.se1753net_gr2_onlineshoes.ui.activities.sale_activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class OrderDetailsActivity extends AppCompatActivity {
     private TextView txtOrderId, txtTotalCost, txtStatus;
     private Button btnComplete;
+    private Button btnUpdateStatus;
     private Order currentOrder;
     private OrderRepository orderRepository;
 
@@ -27,6 +29,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         txtTotalCost = findViewById(R.id.txtTotalCost);
         txtStatus = findViewById(R.id.txtStatus);
         btnComplete = findViewById(R.id.btnComplete);
+        btnUpdateStatus=findViewById(R.id.btnUpdateStatus);
 
         orderRepository = new OrderRepository(getApplication());
 
@@ -39,6 +42,13 @@ public class OrderDetailsActivity extends AppCompatActivity {
         }
 
         btnComplete.setOnClickListener(v -> confirmOrderCompletion());
+        btnUpdateStatus.setOnClickListener(v -> confirmUpdateActivity());
+    }
+
+    private void confirmUpdateActivity() {
+        Intent intent = new Intent();
+        intent.putExtra("ORDER_DETAIL_ID",txtOrderId.getText());
+        startActivity(intent);
     }
 
     private void loadOrderDetails(String orderId) {

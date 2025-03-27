@@ -16,6 +16,7 @@ import com.example.se1753net_gr2_onlineshoes.activity.activity_login;
 import com.example.se1753net_gr2_onlineshoes.data.local.dao.ProductStatisticsDao;
 import com.example.se1753net_gr2_onlineshoes.data.local.database.ShoeShopDatabase;
 import com.example.se1753net_gr2_onlineshoes.data.local.entities.ProductStatistics;
+import com.example.se1753net_gr2_onlineshoes.ui.activities.sale_activities.CustomerListActivity;
 import com.example.se1753net_gr2_onlineshoes.ui.activities.sale_activities.OrderListActivity;
 import com.example.se1753net_gr2_onlineshoes.ui.activities.sale_activities.SaleDashboardActivity;
 
@@ -82,6 +83,16 @@ public class MarketingDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MarketingDashboardActivity.this, OrderListActivity.class);
+                startActivity(intent);
+            }
+        });
+        CardView buttonToCustomerList = findViewById(R.id.buttonToCustomerListActivity);
+
+        // Bắt sự kiện click để mở CustomerListActivity
+        buttonToCustomerList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MarketingDashboardActivity.this, CustomerListActivity.class);
                 startActivity(intent);
             }
         });
