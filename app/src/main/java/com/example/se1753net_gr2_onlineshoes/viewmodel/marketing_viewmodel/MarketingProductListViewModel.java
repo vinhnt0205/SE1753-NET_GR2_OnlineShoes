@@ -66,7 +66,7 @@ public class MarketingProductListViewModel extends ViewModel {
                         products -> {
                             Log.d("MarketingProductListViewModel", "Products fetched: " + products.size());
                             for (Product product : products) {
-                                Log.d("MarketingProductListViewModel", "Product: " + product.brandId + ", Name: " + product.name);
+                                Log.d("MarketingProductListViewModel", "Product: " + product.brandId + ", Name: " + product.name + "Date: " + product.createdAt);
                             }
                             productListLiveData.setValue(products);
                         },

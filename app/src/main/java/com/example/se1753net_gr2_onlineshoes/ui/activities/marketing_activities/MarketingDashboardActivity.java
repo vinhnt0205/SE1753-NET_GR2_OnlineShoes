@@ -13,10 +13,6 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.se1753net_gr2_onlineshoes.R;
 import com.example.se1753net_gr2_onlineshoes.activity.activity_login;
-import com.example.se1753net_gr2_onlineshoes.data.local.dao.ProductStatisticsDao;
-import com.example.se1753net_gr2_onlineshoes.data.local.database.ShoeShopDatabase;
-import com.example.se1753net_gr2_onlineshoes.data.local.entities.ProductStatistics;
-import com.example.se1753net_gr2_onlineshoes.ui.activities.sale_activities.CustomerListActivity;
 import com.example.se1753net_gr2_onlineshoes.ui.activities.sale_activities.OrderListActivity;
 import com.example.se1753net_gr2_onlineshoes.ui.activities.sale_activities.SaleDashboardActivity;
 
@@ -25,7 +21,8 @@ public class MarketingDashboardActivity extends AppCompatActivity {
     private CardView analyticsCardView;
     private CardView loginCardView;
     private CardView salesCardView;
-    private CardView OrderListActivity;
+    private CardView sliderCardView;
+    private CardView orderListCardView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,62 +36,40 @@ public class MarketingDashboardActivity extends AppCompatActivity {
         });
 
         productsCardView = findViewById(R.id.productsCardView);
-
-        productsCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MarketingDashboardActivity.this, MarketingProductListActivity.class);
-                startActivity(intent);
-            }
-        });
-
         analyticsCardView = findViewById(R.id.analyticsCardView);
-
-        analyticsCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MarketingDashboardActivity.this, MarketingAnalyticActivity.class);
-                startActivity(intent);
-            }
-        });
-
         loginCardView = findViewById(R.id.loginCardView);
-
-        loginCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MarketingDashboardActivity.this, activity_login.class);
-                startActivity(intent);
-            }
-        });
-
         salesCardView = findViewById(R.id.salesCardView);
+        sliderCardView = findViewById(R.id.sliderCardView);
+        orderListCardView = findViewById(R.id.buttonToOrderListActivity);
 
-        salesCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MarketingDashboardActivity.this, SaleDashboardActivity.class);
-                startActivity(intent);
-            }
+        productsCardView.setOnClickListener(v -> {
+            Intent intent = new Intent(MarketingDashboardActivity.this, MarketingProductListActivity.class);
+            startActivity(intent);
         });
-        OrderListActivity = findViewById(R.id.buttonToOrderListActivity);
 
-        OrderListActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MarketingDashboardActivity.this, OrderListActivity.class);
-                startActivity(intent);
-            }
+        analyticsCardView.setOnClickListener(v -> {
+            Intent intent = new Intent(MarketingDashboardActivity.this, MarketingAnalyticActivity.class);
+            startActivity(intent);
         });
-        CardView buttonToCustomerList = findViewById(R.id.buttonToCustomerListActivity);
 
-        // Bắt sự kiện click để mở CustomerListActivity
-        buttonToCustomerList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MarketingDashboardActivity.this, CustomerListActivity.class);
-                startActivity(intent);
-            }
+        loginCardView.setOnClickListener(v -> {
+            Intent intent = new Intent(MarketingDashboardActivity.this, activity_login.class);
+            startActivity(intent);
+        });
+
+        salesCardView.setOnClickListener(v -> {
+            Intent intent = new Intent(MarketingDashboardActivity.this, SaleDashboardActivity.class);
+            startActivity(intent);
+        });
+
+        sliderCardView.setOnClickListener(v -> {
+            Intent intent = new Intent(MarketingDashboardActivity.this, MarketingSliderListActivity.class);
+            startActivity(intent);
+        });
+
+        orderListCardView.setOnClickListener(v -> {
+            Intent intent = new Intent(MarketingDashboardActivity.this, OrderListActivity.class);
+            startActivity(intent);
         });
     }
 }

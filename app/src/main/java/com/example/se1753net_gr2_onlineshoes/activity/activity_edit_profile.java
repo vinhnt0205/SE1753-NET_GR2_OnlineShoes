@@ -2,6 +2,7 @@ package com.example.se1753net_gr2_onlineshoes.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -36,28 +37,27 @@ public class activity_edit_profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        initViews();
-        userDao = ShoeShopDatabase.getInstance(this).userDao();
-
-        btnToDashboard = findViewById(R.id.btnToDashboard);
-        btnToDashboard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(activity_edit_profile.this, MarketingDashboardActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        // Nhận USER_ID từ Intent (dưới dạng String)
-        userId = getIntent().getStringExtra("USER_ID");
+        // Lấy userId từ SharedPreferences
+        SharedPreferences userPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+        userId = userPreferences.getString("userId", null);
 
         if (userId == null || userId.isEmpty()) {
-            Toast.makeText(this, "Lỗi: Không tìm thấy người dùng!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Bạn chưa đăng nhập!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(activity_edit_profile.this, activity_login.class));
             finish();
             return;
         }
 
-        // Lấy dữ liệu người dùng từ database trên Background Thread
+        initViews();
+        userDao = ShoeShopDatabase.getInstance(this).userDao();
+
+        btnToDashboard = findViewById(R.id.btnToDashboard);
+        btnToDashboard.setOnClickListener(v -> {
+            Intent intent = new Intent(activity_edit_profile.this, MarketingDashboardActivity.class);
+            startActivity(intent);
+        });
+
+        // Lấy dữ liệu người dùng từ database
         new Thread(() -> {
             currentUser = userDao.getUserById(userId);
             if (currentUser != null) {
@@ -75,10 +75,9 @@ public class activity_edit_profile extends AppCompatActivity {
         btnCancel.setOnClickListener(v -> finish());
         btnChangePassword.setOnClickListener(v -> {
             Intent intent = new Intent(activity_edit_profile.this, activity_change_password.class);
-            intent.putExtra("USER_ID", userId); // Truyền ID người dùng sang trang đổi mật khẩu
+            intent.putExtra("USER_ID", userId);
             startActivity(intent);
         });
-
     }
 
     private void initViews() {

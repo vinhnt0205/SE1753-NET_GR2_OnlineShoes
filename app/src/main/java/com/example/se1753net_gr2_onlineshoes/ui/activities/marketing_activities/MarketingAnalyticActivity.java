@@ -58,7 +58,7 @@ public class MarketingAnalyticActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbarProductList);
         setSupportActionBar(toolbar); // Important! This enables the ActionBar
 
         // Enable back button

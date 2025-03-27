@@ -238,7 +238,7 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:id="@+id/pharmImage"
-                        android:src="@drawable/analytics_dashboard_icon"
+                        android:src="@drawable/order_dashboard_icon"
                         android:layout_marginTop="15dp"
                         android:layout_centerHorizontal="true"/>
                 </RelativeLayout>
@@ -246,6 +246,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:id="@+id/sliderCardView"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:id="@+id/buttonToCustomerListActivity"
@@ -292,7 +293,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/grocName"
-                        android:text="PlaceHolder"
+                        android:text="Sliders"
                         android:textSize="20sp"
                         android:textColor="@color/lavender"
                         android:fontFamily="@font/poppins_semibold"
@@ -303,7 +304,7 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:id="@+id/grocImage"
-                        android:src="@drawable/analytics_dashboard_icon"
+                        android:src="@drawable/discount_dashboard_icon"
                         android:layout_marginTop="15dp"
                         android:layout_centerHorizontal="true"/>
                 </RelativeLayout>
